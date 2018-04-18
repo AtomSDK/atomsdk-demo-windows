@@ -24,7 +24,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
  
 ## SDK Installation
  
-Although ATOM SDK Binaries are already provided with the demo application but you can install the latest version through NuGet.
+Install the latest version of Atom Windows SDK through NuGet.
  
 ```
 Install-package Atom.Windows.Sdk –version 1.0.3

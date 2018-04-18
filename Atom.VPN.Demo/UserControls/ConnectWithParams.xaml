@@ -1,0 +1,44 @@
+﻿<UI:UserControlBase x:Class="Atom.VPN.Demo.UserControls.ConnectWithParams"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" xmlns:helper="clr-namespace:Atom.VPN.Demo.Helpers"
+             xmlns:UI="clr-namespace:Atom.VPN.Demo.UINotifiers"
+             Height="200" Width="400" Background="White">
+    <Grid Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipPrimaryProtocol}">
+            <Label Content="Select Primary Protocol: " VerticalContentAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" ItemsSource="{Binding ProtocolsCollection}" SelectedIndex="0" SelectedValue="{Binding PrimaryProtocol, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200"/>
+        </Grid>
+
+        <Grid Grid.Row="1"  VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipSecondaryProtocol}">
+            <Label Content="Select Secondary Protocol: " VerticalContentAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" ItemsSource="{Binding ProtocolsCollection}" SelectedValue="{Binding SecondaryProtocol, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200"/>
+        </Grid>
+
+        <Grid Grid.Row="2"  VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipTertiaryProtocol}">
+            <Label Content="Select Tertiary Protocol: " VerticalContentAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" ItemsSource="{Binding ProtocolsCollection}" SelectedValue="{Binding TertiaryProtocol, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200"/>
+        </Grid>
+
+        <Grid Grid.Row="3" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipCountry}">
+            <Label Content="Select Country:" VerticalContentAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Right" SelectedIndex="0" ItemsSource="{Binding CountriesCollection}" SelectedValue="{Binding SelectedCountry, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200" />
+        </Grid>
+
+        <Grid Grid.Row="4" VerticalAlignment="Center" Margin="4,0,0,0" HorizontalAlignment="Left" ToolTip="{Binding ParentWindow.Messages.TootlipOptimization}">
+            <CheckBox IsChecked="{Binding UseOptimization}" Content="Use Optimization" />
+        </Grid>
+
+    </Grid>
+</UI:UserControlBase>

@@ -1,0 +1,33 @@
+﻿<UI:UserControlBase x:Class="Atom.VPN.Demo.UserControls.ConnectWithDedicatedIP"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:UI="clr-namespace:Atom.VPN.Demo.UINotifiers"
+             mc:Ignorable="d" 
+             Height="200" Width="400" Background="White">
+    <Grid Margin="0,2,0,2">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
+            <Grid VerticalAlignment="Top" Margin="0,2,0,2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Enter your dedicated IP/Host:" VerticalAlignment="Center" />
+                <TextBox Grid.Column="1" VerticalContentAlignment="Center" ToolTip="{Binding ParentWindow.Messages.TooltipDedIP}" Height="25" Margin="10,2,0,2" MaxLength="100" Text="{Binding Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="DedicatedIPBox_KeyDown" />
+            </Grid>
+
+
+            <Grid VerticalAlignment="Top" Margin="0,10,0,10" ToolTip="{Binding ParentWindow.Messages.TooltipPrimaryProtocol}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Select Protocol: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="1" SelectedIndex="0" Margin="80,0,0,0" ItemsSource="{Binding ProtocolsCollection}" SelectedValue="{Binding PrimaryProtocol, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name"/>
+            </Grid>
+
+            <CheckBox Margin="0,10,0,10" ToolTip="{Binding ParentWindow.Messages.TooltipSkipVerif}" Content="Skip User Verfication" IsChecked="{Binding IsSkippingVerification}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        </StackPanel>
+    </Grid>
+</UI:UserControlBase>

@@ -1,0 +1,81 @@
+﻿<UI:WindowBase x:Class="Atom.VPN.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Atom.VPN.Demo" 
+        mc:Ignorable="d" xmlns:UI="clr-namespace:Atom.VPN.Demo.UINotifiers"
+        Title="Atom SDK Demo" Height="570" Width="475" ResizeMode="CanMinimize" Closing="ClosingApp" Icon="Resources/ic_atom.ico">
+    <Grid Margin="5" >
+        <StackPanel x:Name="InitSDKPanel" VerticalAlignment="Top" Margin="10,100" Visibility="{Binding ISSDKInitialized, Converter={StaticResource InvertBoolToVis}}" IsEnabled="{Binding IsSDKInitializing, Converter={StaticResource InvertBoolConverter}}">
+            <TextBlock Padding="0,10" TextAlignment="Center" HorizontalAlignment="Center" Text="Enter your Secret Key below which is provided by Atom. The SDK Object requires it to be initialized." TextWrapping="Wrap" />
+            <TextBox TextAlignment="Center" VerticalContentAlignment="Center" Height="30" Text="{Binding SecretKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="SecretKeyBox_KeyDown" />
+            <Button FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="40" Content="Initialize" Margin="0,30,0,0" Click="InitializeSDK"  />
+            <TextBlock Padding="0,50" Text="Please wait while SDK is being initialized." HorizontalAlignment="Center" FontSize="20" Visibility="{Binding IsSDKInitializing, Converter={StaticResource BoolToVis}}" />
+        </StackPanel>
+
+        <Grid Visibility="{Binding ISSDKInitialized, Converter={StaticResource BoolToVis}}" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="220" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Margin="0,5,0,5" CornerRadius="5" BorderBrush="#FFACACAC" BorderThickness="1">
+
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Margin="5,5,0,5" Orientation="Horizontal" VerticalAlignment="Center" >
+                        <TextBlock Text="Secret Key: " />
+                        <TextBlock Text="{Binding SecretKey}" />
+                    </StackPanel>
+
+                    <CheckBox Grid.Row="1" IsChecked="{Binding IsAutoCredMode}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" Content="Auto generate user credentials" ToolTip="{Binding Messages.TooltipAutoGenCred}" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" ToolTip="{Binding Messages.TooltipUUID}" IsEnabled="{Binding IsAutoCredMode}">
+                        <Label Content="UUID:" VerticalContentAlignment="Center" />
+                        <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding UUID}" />
+                    </StackPanel>
+                    <Grid Grid.Row="2" Margin="0,5" IsEnabled="{Binding IsAutoCredMode, Converter={StaticResource InvertBoolConverter}}" ToolTip="{Binding Messages.TooltipCred}">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Label Content="Username:" VerticalContentAlignment="Center" />
+                            <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding Username}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <Label Content="Password:" VerticalContentAlignment="Center" />
+                            <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding Password}" />
+                            <!--<PasswordBox Width="200" VerticalContentAlignment="Center" helper:PasswordHelper.Password="{Binding Password}" helper:PasswordHelper.Attach="True" />-->
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+            </Border>
+
+            <TabControl Grid.Row="1" SelectedValue="{Binding SelectedTab}" IsEnabled="{Binding IsConnDisconnAllowed}">
+                <TabItem Header="Connect with PSK">
+                    <ContentControl Content="{Binding ConnectionWithPSK}" />
+                </TabItem>
+                <TabItem Header="Connect with Params">
+                    <ContentControl Content="{Binding ConnectionWithParams}" />
+                </TabItem>
+                <TabItem Header="Connect with Dedicated IP">
+                    <ContentControl Content="{Binding ConnectionWithDedicatedIP}" />
+                </TabItem>
+            </TabControl>
+
+            <Button Grid.Row="2" Content="{Binding ActionButtonText}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="40" Click="ActionButton_Click"/>
+
+            <Grid Grid.Row="3" Background="Gray" ToolTip="{Binding Messages.TooltipCallbacks}">
+                <TextBox IsReadOnly="True" Text="{Binding ConnectionDialog}" Background="Black" Foreground="White" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"  />
+            </Grid>
+            
+        </Grid>
+
+        
+    </Grid>
+</UI:WindowBase>
