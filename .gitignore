@@ -3,4 +3,7 @@
 Atom.SDK.Net.dll
 Atom.SDK.Net.xml
 obj/
+.vs/
+bin/
+obj/
 
