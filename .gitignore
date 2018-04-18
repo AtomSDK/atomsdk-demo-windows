@@ -1,6 +1,8 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 
+!AtomBinaries/bin/
+Atom.SDK.Net.dll
+Atom.SDK.Net.xml
 bin/
 obj/
-Atom.SDK.Net
-!AtomBinaries/bin
+
