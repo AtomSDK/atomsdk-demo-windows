@@ -1,6 +1,6 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 
-!(Atom.VPN.Demo/AtomBinaries/bin/)
+!Atom.VPN.Demo/AtomBinaries/bin/
 Atom.SDK.Net.dll
 Atom.SDK.Net.xml
 bin/
