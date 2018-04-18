@@ -1,0 +1,84 @@
+﻿Uninstalling assembly 'D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe
+   logfile = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.InstallLog
+Removing EventLog source OpenVpnService.
+Service OpenVpnService is being removed from the system...
+Service OpenVpnService was successfully removed from the system.
+Installing assembly 'D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe
+   logfile = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.InstallLog
+Installing service OpenVpnService...
+Service OpenVpnService has been successfully installed.
+Creating EventLog source OpenVpnService in log Application...
+See the contents of the log file for the D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe assembly's progress.
+The file is located at D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.InstallLog.
+Committing assembly 'D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.exe
+   logfile = D:\PureVPNSDKRepoBB\RELEASE\x86\bin\openvpnserv2.InstallLog
+Uninstalling assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Removing EventLog source OpenVpnService.
+Service OpenVpnService is being removed from the system...
+Service OpenVpnService was successfully removed from the system.
+Installing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Installing service OpenVpnService...
+Service OpenVpnService has been successfully installed.
+Creating EventLog source OpenVpnService in log Application...
+See the contents of the log file for the C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe assembly's progress.
+The file is located at C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog.
+Committing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Uninstalling assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Removing EventLog source OpenVpnService.
+Service OpenVpnService is being removed from the system...
+Service OpenVpnService was successfully removed from the system.
+Installing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Installing service OpenVpnService...
+Service OpenVpnService has been successfully installed.
+Creating EventLog source OpenVpnService in log Application...
+See the contents of the log file for the C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe assembly's progress.
+The file is located at C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog.
+Committing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Uninstalling assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Removing EventLog source OpenVpnService.
+Service OpenVpnService is being removed from the system...
+Service OpenVpnService was successfully removed from the system.
+Installing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
+Installing service OpenVpnService...
+Service OpenVpnService has been successfully installed.
+Creating EventLog source OpenVpnService in log Application...
+See the contents of the log file for the C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe assembly's progress.
+The file is located at C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog.
+Committing assembly 'C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.exe
+   logfile = C:\Users\junaid.arshad\Desktop\Atom.SDK.Example\bin\openvpnserv2.InstallLog
