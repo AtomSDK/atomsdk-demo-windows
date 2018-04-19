@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Atom.VPN.Demo.Models
 {
@@ -32,6 +33,26 @@ namespace Atom.VPN.Demo.Models
         public string TooltipCountry { get { return  "An attempt to connect will get fastest servers from the selected country."; } }
         public string TootlipOptimization { get { return  "If checked, fastest servers will be fetched based on the smartest ping response."; } }
         public string TooltipCallbacks { get { return  "Displays connection callbacks"; } }
+
+        internal static void ShowMessage(string message, string caption = "Atom SDK Demo")
+        {
+            MessageBox.Show(message, caption);
+        }
+
+        internal static void ShowMessage(SDK.Net.AtomException ex, string caption = "Atom SDK Demo")
+        {
+            MessageBox.Show(ex.Message + Environment.NewLine + 
+                "ErrorCode: " + ex.ErrorCode + Environment.NewLine + 
+                "InnerException: " + ex.InnerException.Message, 
+                caption);
+        }
+
+        internal static void ShowMessage(Exception ex, string caption = "Atom SDK Demo")
+        {
+            MessageBox.Show(ex.Message + Environment.NewLine + 
+                "InnerException: " + ex.InnerException.Message, 
+                caption);
+        }
 
     }
 }

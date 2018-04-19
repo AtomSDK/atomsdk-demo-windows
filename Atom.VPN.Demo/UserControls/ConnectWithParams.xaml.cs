@@ -27,7 +27,11 @@ namespace Atom.VPN.Demo.UserControls
         public async void Initialize()
         {
             var protocols = new List<Protocol>();
-            await Task.Factory.StartNew(() => protocols = AtomHelper.GetProtocols());
+            await Task.Factory.StartNew(() =>
+            {
+                try { protocols = AtomHelper.GetProtocols(); }
+                catch (SDK.Net.AtomException ex) { Messages.ShowMessage(ex); }
+            });
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
         }
@@ -168,7 +172,7 @@ namespace Atom.VPN.Demo.UserControls
                     ParentWindow.ShowConnectingState();
             }
             else
-                MessageBox.Show(response.Message);
+                Messages.ShowMessage(response.Message);
         }
 
         public bool CanConnect { get { return PrimaryProtocol != null && SelectedCountry != null; } }
@@ -177,7 +181,7 @@ namespace Atom.VPN.Demo.UserControls
         {
             if (!CanConnect)
             {
-                MessageBox.Show(Messages.SelectProtocolCountry);
+                Messages.ShowMessage(Messages.SelectProtocolCountry);
                 return false;
             }
 

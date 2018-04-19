@@ -56,7 +56,7 @@ namespace Atom.VPN.Demo.UserControls
                     ParentWindow.ShowConnectingState();
             }
             else
-                MessageBox.Show(response.Message);
+                Messages.ShowMessage(response.Message);
         }
 
         public bool CanConnect { get { return !String.IsNullOrEmpty(PSK); } }
@@ -65,7 +65,7 @@ namespace Atom.VPN.Demo.UserControls
         {
             if (!CanConnect)
             {
-                MessageBox.Show(Messages.PSKRequired);
+                Messages.ShowMessage(Messages.PSKRequired);
                 return false;
             }
             var properties = new VPNProperties(PSK);

@@ -232,13 +232,14 @@ namespace Atom.VPN.Demo
         private void InitializeSDK(object sender, RoutedEventArgs e)
         {
             InitializeSDK();
+
         }
 
         private async void InitializeSDK()
         {
             if (String.IsNullOrEmpty(SecretKey))
             {
-                MessageBox.Show(Messages.SecretKeyRquired);
+                Messages.ShowMessage(Messages.SecretKeyRquired);
                 return;
             }
             IsSDKInitializing = true;
@@ -358,7 +359,7 @@ namespace Atom.VPN.Demo
         {
             if (!IsDisconnected)
             {
-                MessageBox.Show(Messages.DisconnectBeforeExit);
+                Messages.ShowMessage(Messages.DisconnectBeforeExit);
                 e.Cancel = true;
             }
         }
