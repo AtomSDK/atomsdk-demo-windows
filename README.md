@@ -11,7 +11,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
  
 * Compatible with Microsoft Visual Studio 2015 and onwards
 * Minimum .Net Framework 4.5 required
-* Compatible with ATOM SDK Version 1.0.3 and onwards 
+* Compatible with ATOM SDK Version 1.0.4 and onwards 
 
 ## Supported Protocols
 
@@ -27,7 +27,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Windows SDK through NuGet.
  
 ```
-Install-package Atom.Windows.Sdk –version 1.0.3
+Install-package Atom.Windows.Sdk –version 1.0.4
 ```
  A configuration file is provided along with the SDK namely “Atom.SDK.Net.dll.config” which needs to be configured to work properly and should be present in the same directory as your installation directory e.g. C:\ProgramFiles\YourSoftware. Default values are pre-filled for the developer ease.
  
