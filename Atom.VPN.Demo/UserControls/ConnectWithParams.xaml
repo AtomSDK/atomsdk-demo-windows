@@ -40,5 +40,9 @@
             <CheckBox IsChecked="{Binding UseOptimization}" Content="Use Optimization" />
         </Grid>
 
+        <Grid Grid.Row="5" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right" ToolTip="{Binding ParentWindow.Messages.TootlipOptimization}" Width="200">
+            <CheckBox IsChecked="{Binding UseSmartDialing}" Content="Use Smart Dialing" />
+        </Grid>
+
     </Grid>
 </UI:UserControlBase>

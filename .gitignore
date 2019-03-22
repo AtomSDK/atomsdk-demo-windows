@@ -6,4 +6,5 @@ obj/
 .vs/
 Atom.VPN.Demo/bin/
 Atom.VPN.Demo/obj/
+packages/
 

@@ -1,16 +1,15 @@
 ﻿using Atom.SDK.Net;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Atom.VPN.Demo.UINotifiers;
-using Atom.SDK.Net.Models;
 using Atom.VPN.Demo.UserControls;
 using Atom.VPN.Demo.Interfaces;
 using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Extensions;
 using Atom.VPN.Demo.Models;
+using Atom.SDK.Core;
 
 namespace Atom.VPN.Demo
 {
@@ -320,6 +319,14 @@ namespace Atom.VPN.Demo
             IsConnDisconnAllowed = false;
             IsDisconnected = false;
             IsConnecting = true;
+        }
+
+        public void ShowDisconnectedState()
+        {
+            IsDisconnected = true;
+            IsConnecting = false;
+            IsConnected = false;
+            IsConnDisconnAllowed = true;
         }
 
         private void ActionButton_Click(object sender, RoutedEventArgs e)

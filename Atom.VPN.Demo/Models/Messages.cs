@@ -39,7 +39,7 @@ namespace Atom.VPN.Demo.Models
             MessageBox.Show(message, caption);
         }
 
-        internal static void ShowMessage(SDK.Net.AtomException ex, string caption = "Atom SDK Demo")
+        internal static void ShowMessage(SDK.Core.AtomException ex, string caption = "Atom SDK Demo")
         {
             MessageBox.Show(ex.Message + Environment.NewLine + 
                 "ErrorCode: " + ex.ErrorCode + Environment.NewLine + 

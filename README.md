@@ -1,4 +1,4 @@
-# ATOM VPN SDK demo for Windows Desktop Applications
+﻿# ATOM VPN SDK demo for Windows Desktop Applications
 This is a demo application for Windows Desktop Applications with basic usage of ATOM VPN SDK which will help the developers to create smooth applications over ATOM SDK quickly.
 ## SDK Features covered in this Demo
 * Connection with Parameters
@@ -6,12 +6,13 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 * Connection with Dedicated IP
 * Connection with Multiple Protocols (Auto-Retry Functionality)
 * Connection with Real-time Optimized Servers (Countries based on latency from user in Real-time)
+* Connection with Smart Dialing (Use GetCountriesForSmartDialing() to get the Advanced VPN Dialing supported countries)
  
 ## Compatibility
  
 * Compatible with Microsoft Visual Studio 2015 and onwards
 * Minimum .Net Framework 4.5 required
-* Compatible with ATOM SDK Version 1.0.4 and onwards 
+* Compatible with ATOM SDK Version 2.0 and onwards 
 
 ## Supported Protocols
 
@@ -27,12 +28,12 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Windows SDK through NuGet.
  
 ```
-Install-Package Atom.SDK.Net -Version 1.0.4
+Install-Package Atom.SDK.Net -Version 2.0.0
 ```
- A configuration file is provided along with the SDK namely “Atom.SDK.Net.dll.config” which needs to be configured to work properly and should be present in the same directory as your installation directory e.g. C:\ProgramFiles\YourSoftware. Default values are pre-filled for the developer ease.
- 
-Run Atom.SDK.Installer.exe to install supporting services and drivers. The services will be installed and copied to the paths provided in the config file.
 
+Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
+
+Atom.SDK.Net.dll.config file should be copied to the output directory where Atom.SDK.Net.dll is present (only if the config file is not already there) since AtomSDK will read the name of your RAS VPN Adapter mentioned in this config against RAS_ADAPTER_NAME key.
 
 # Getting Started with the Code
  ATOM SDK needs to be initialized with a “SecretKey” provided to you after you buy the subscription which is typically a hex-numeric literal.
@@ -49,11 +50,23 @@ It can be initialized using an instance of AtomConfiguration. It should have a V
 ```
 var atomConfiguration = new AtomConfiguration(“SECRETKEY_GOES_HERE”);
 atomConfiguration.VpnInterfaceName = "Atom";
-atomConfiguration.BaseUrl = "YOUR_BASE_URL"; // Optional
+atomConfiguration.BaseUrl = new Uri("YOUR_BASE_URL"); // Optional
 var atomManagerInstance = AtomManager.Initialize(atomConfiguration);
 ```
 
 PS: ATOM SDK is a singleton, and must be initialized before accessing its methods, otherwise NullObjectReference Exception will be thrown.
+
+ ## Enable Local Inventory Support
+ 
+ ATOM SDK offers a feature to enable the local inventory support. This can help Application to fetch Countries and Protocols even when device network is not working.
+
+* To enable it, Log In to the Atom Console
+* Download the local data file in json format
+* File name should be localdata.json. Please rename the file to localdata.json if you find any discrepancy in the file name.
+* Paste the file in the output directory of your application
+ 
+ 
+ 
  ## Events to Register
 
 ATOM SDK offers five events to register for the ease of the developer.
@@ -79,9 +92,9 @@ ATOM SDK provided two ways to authenticate your vpn user.
 First one is to offer VPN Credentials directly to the SDK which you may create through the Admin Panel provided by ATOM.
 
 ```
-atomManagerInstance.Credentials = new Credentials(“VPNUsername”, “VPNPassword”);
+atomManagerInstance.Credentials = new Credentials("VPNUsername","VPNPassword");
 ```
-Alternatively, if you don’t want to take hassle of creating users yourself, leave it on us and we will do the rest for you! Easy isn't it.
+Alternatively, if you don't want to take hassle of creating users yourself, leave it on us and we will do the rest for you! Easy isn't it.
 
 ```
 atomManagerInstance.UUID = “UniqueUserID”;
@@ -90,7 +103,7 @@ atomManagerInstance.UUID = “UniqueUserID”;
 You just need to provide a Unique User ID for your user e.g. any unique hash or even user’s email which you think remains consistent and unique for your user. ATOM SDK will generate VPN Account behind the scenes automatically and gets your user connected!
 
 # VPN Connection
-You need to declare an object of “VPNProperties” Class to define your connection preferences. Details of all the available properties can be seen in the inline documentation of “VPNProperties” Class. For the least, you need to give Country and Protocol with which you want to connect.
+You need to declare an object of "VPNProperties" Class to define your connection preferences. Details of all the available properties can be seen in the inline documentation of “VPNProperties” Class. For the least, you need to give Country and Protocol with which you want to connect.
 
 ```
 var vpnProperties = new VPNProperties(Country country, Protocol protocol);
@@ -100,6 +113,12 @@ var vpnProperties = new VPNProperties(Country country, Protocol protocol);
 You can get the Countries list through ATOM SDK. 
 ```
 var countries = atomManagerInstance.GetCountries();
+```
+
+## Fetch Countries For Smart Dialing
+You can get the Countries those support Smart Dialing through ATOM SDK.
+```
+var countries = AtomManagerInstance.GetCountriesForSmartDialing();
 ```
 
 ## Fetch Protocols
@@ -139,16 +158,28 @@ atomManagerInstance.Connect(properties);
 ```
  
 ### Connection with Real-time Optimized Servers
-This one is same as the first one i.e. “Connection with Parameters” with a slight addition of using Real-time optimized servers best from your user’s location. You just need to set this property to TRUE and rest will be handled by the ATOM SDK.
+This one is same as the first one i.e. "Connection with Parameters" with a slight addition of using Real-time optimized servers best from your user’s location. You just need to set this property to TRUE and rest will be handled by the ATOM SDK.
 ```
+var vpnProperties = new VPNProperties(Country country, Protocol protocol);
 vpnProperties.UseOptimization= true;
+atomManagerInstance.Connect(properties);
 ```
 For more information, please see the inline documentation of VPNProperties Class.
 
 If you want to show your user the best location for him on your GUI then ATOM SDK have it ready for you as well! ATOM SDK has a method exposed namely “GetOptimizedCountries()” which adds a property “Latency” in the country object which has the real-time latency of all countries from your user’s location (only if ping is enabled on your user’s system and ISP doesn’t blocks any of our datacenters). You can use this property to find the best speed countries from your user’s location.
 
+### Connection with Smart Dialing
+“Connection with Parameters” with a slight addition of using smart dialing to connect. You just need to call "withSmartDialing" and rest will handled by the ATOM SDK.
+
+```
+var vpnProperties = new VPNProperties(Country country, Protocol protocol);
+vpnProperties.UseSmartDialing= true;
+atomManagerInstance.Connect(properties);
+```
+For more information, please see the inline documentation of VPNProperties Class.
+
 ### Connection with Multiple Protocols (Auto-Retry Functionality)
-You can provide Three Protocols at max so ATOM SDK can attempt automatically on your behalf to get your user connected with the Secondary or Tertiary protocol if your base Protocol fails to connect. 
+You can provide THREE Protocols at max so ATOM SDK can attempt automatically on your behalf to get your user connected with the Secondary or Tertiary protocol if your primary Protocol fails to connect. 
 
 ```
 vpnProperties.SecondaryProtocol = ProtocolObject;
@@ -167,4 +198,16 @@ atomManagerInstance.Cancel();
 ```
 atomManagerInstance.Disconnect();
 ```
- 
+
+# Resolve dependencies conflicts if any :
+
+In case any dependency conflict is faced while building/running ATOM SDK with your application e.g. different version of Newtonsoft.Json used in your application, define the binding redirect in your app configuration like following:
+
+```
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-11.0.0.0" newVersion="11.0.0.0" />
+      </dependentAssembly>
+```
+
+where "0.0.0.0-11.0.0.0" is the minimum and maximum version range of Newtonsoft.Json.

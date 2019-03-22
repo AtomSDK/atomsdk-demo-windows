@@ -1,5 +1,6 @@
-﻿using Atom.SDK.Net;
-using Atom.SDK.Net.Models;
+﻿using Atom.SDK.Core;
+using Atom.SDK.Core.Models;
+using Atom.SDK.Net;
 using Atom.VPN.Demo.Models;
 using System;
 using System.Collections.Generic;
@@ -101,7 +102,7 @@ namespace Atom.VPN.Demo.Helpers
         /// Registers Connected Event
         /// </summary>
         /// <param name="onConnected">EventHandler for Connected event</param>
-        internal static void RegisterConnectedEvent(EventHandler onConnected)
+        internal static void RegisterConnectedEvent(EventHandler<ConnectedEventArgs> onConnected)
         {
             AtomManagerInstance.Connected += onConnected;
         }
@@ -182,6 +183,15 @@ namespace Atom.VPN.Demo.Helpers
         internal static List<Country> GetCountries()
         {
             return AtomManagerInstance.GetCountries();
+        }
+
+        /// <summary>
+        /// Fetches the list of smart countries using AtomManager instance
+        /// </summary>
+        /// <returns>List of allowed Countries</returns>
+        internal static List<Country> GetSmartCountries()
+        {
+            return AtomManagerInstance.GetCountriesForSmartDialing();
         }
 
     }

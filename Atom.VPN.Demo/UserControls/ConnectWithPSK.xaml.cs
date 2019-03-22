@@ -1,5 +1,4 @@
 ﻿using Atom.VPN.Demo.UINotifiers;
-using Atom.SDK.Net.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +16,7 @@ using System.Windows.Shapes;
 using Atom.VPN.Demo.Interfaces;
 using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Models;
+using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo.UserControls
 {
@@ -51,9 +51,9 @@ namespace Atom.VPN.Demo.UserControls
             var response = AtomHelper.ValidateConnection();
             if (response.IsValid)
             {
-                bool isConnecting = StartConnection();
-                if (isConnecting)
-                    ParentWindow.ShowConnectingState();
+                ParentWindow.ShowConnectingState();
+                if (!StartConnection())
+                    ParentWindow.ShowDisconnectedState();
             }
             else
                 Messages.ShowMessage(response.Message);

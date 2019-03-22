@@ -1,5 +1,4 @@
 ﻿using Atom.VPN.Demo.UINotifiers;
-using Atom.SDK.Net.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using Atom.VPN.Demo.Helpers;
 using System;
 using Atom.VPN.Demo.Models;
+using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo.UserControls
 {
@@ -74,7 +74,7 @@ namespace Atom.VPN.Demo.UserControls
             await Task.Factory.StartNew(() =>
             {
                 try { protocols = AtomHelper.GetProtocols(); }
-                catch (SDK.Net.AtomException ex) { Messages.ShowMessage(ex); }
+                catch (SDK.Core.AtomException ex) { Messages.ShowMessage(ex); }
             });
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
@@ -85,9 +85,9 @@ namespace Atom.VPN.Demo.UserControls
             var response = AtomHelper.ValidateConnection();
             if (response.IsValid)
             {
-                bool isConnecting = StartConnection();
-                if (isConnecting)
-                    ParentWindow.ShowConnectingState();
+                ParentWindow.ShowConnectingState();
+                if (!StartConnection())
+                    ParentWindow.ShowDisconnectedState();
             }
             else
                 Messages.ShowMessage(response.Message);
