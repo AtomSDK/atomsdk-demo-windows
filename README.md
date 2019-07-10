@@ -31,7 +31,16 @@ Install the latest version of Atom Windows SDK through NuGet.
 Install-Package Atom.SDK.Net -Version 2.1.0
 ```
 
+```
+IMPORTANT 
+Due to some compatibility issues, you might need to copy the following files manually from \packages\Atom.SDK.Net.2.1.0\src to your project output directory:
+nfapi.dll
+NetworkUtility.dll
+MixpanelC.dll
+```
+
 Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
+
 
 Atom.SDK.Net.dll.config file should be copied to the output directory where Atom.SDK.Net.dll is present (only if the config file is not already there) since AtomSDK will read the name of your RAS VPN Adapter mentioned in this config against RAS_ADAPTER_NAME key.
 
