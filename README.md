@@ -33,7 +33,7 @@ Install-Package Atom.SDK.Net -Version 2.1.0
 
 ```
 IMPORTANT 
-Due to some compatibility issues, you might need to copy the following files manually \packages\Atom.SDK.Net.2.1.0\src to your project output directory:
+Due to some compatibility issues, you might need to copy the following files manually from \packages\Atom.SDK.Net.2.1.0\src to your project output directory:
 nfapi.dll
 NetworkUtility.dll
 MixpanelC.dll
