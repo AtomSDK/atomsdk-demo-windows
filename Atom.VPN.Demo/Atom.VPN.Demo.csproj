@@ -39,11 +39,13 @@
     <ApplicationIcon>Resources\ic_atom.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Atom.SDK.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.2.0.0\lib\net45\Atom.SDK.Core.dll</HintPath>
+    <Reference Include="Atom.SDK.Core, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.2.1.0\lib\net45\Atom.SDK.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Atom.SDK.Net, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.2.0.0\lib\net45\Atom.SDK.Net.dll</HintPath>
+    <Reference Include="Atom.SDK.Net, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.2.1.0\lib\net45\Atom.SDK.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>

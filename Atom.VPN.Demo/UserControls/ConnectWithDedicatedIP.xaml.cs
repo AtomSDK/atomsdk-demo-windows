@@ -24,17 +24,6 @@ namespace Atom.VPN.Demo.UserControls
             InitializeComponent();
         }
 
-        private bool _IsSkippingVerification;
-        public bool IsSkippingVerification
-        {
-            get { return _IsSkippingVerification; }
-            set
-            {
-                _IsSkippingVerification = value;
-                NotifyOfPropertyChange(() => IsSkippingVerification);
-            }
-        }
-
         private string _Host = string.Empty;
         public string Host
         {
@@ -103,7 +92,6 @@ namespace Atom.VPN.Demo.UserControls
                 return false;
             }
             var properties = new VPNProperties(Host, PrimaryProtocol);
-            properties.SkipUserVerification = IsSkippingVerification;
             AtomHelper.Connect(properties);
             return true;
         }

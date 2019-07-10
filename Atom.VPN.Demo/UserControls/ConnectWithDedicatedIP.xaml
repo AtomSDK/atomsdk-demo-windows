@@ -26,8 +26,6 @@
                 <TextBlock Text="Select Protocol: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="1" SelectedIndex="0" Margin="80,0,0,0" ItemsSource="{Binding ProtocolsCollection}" SelectedValue="{Binding PrimaryProtocol, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name"/>
             </Grid>
-
-            <CheckBox Margin="0,10,0,10" ToolTip="{Binding ParentWindow.Messages.TooltipSkipVerif}" Content="Skip User Verfication" IsChecked="{Binding IsSkippingVerification}" VerticalAlignment="Center" HorizontalAlignment="Left" />
         </StackPanel>
     </Grid>
 </UI:UserControlBase>
