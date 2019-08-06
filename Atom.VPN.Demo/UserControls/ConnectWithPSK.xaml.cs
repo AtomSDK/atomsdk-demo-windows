@@ -1,21 +1,11 @@
 ﻿using Atom.VPN.Demo.UINotifiers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Atom.VPN.Demo.Interfaces;
 using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Models;
+using Atom.Core.Models;
 using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo.UserControls
@@ -25,6 +15,9 @@ namespace Atom.VPN.Demo.UserControls
     /// </summary>
     public partial class ConnectWithPSK : UserControlBase, IConnection
     {
+        public List<Protocol> Protocols { get; set; }
+        public List<Country> Countries { get; set; }
+
         public ConnectWithPSK()
         {
             InitializeComponent();
@@ -39,11 +32,6 @@ namespace Atom.VPN.Demo.UserControls
                 _PSK = value;
                 NotifyOfPropertyChange(() => PSK);
             }
-        }
-
-        public void Initialize()
-        {
-
         }
 
         public void Connect()
@@ -78,6 +66,10 @@ namespace Atom.VPN.Demo.UserControls
             if (e.Key == Key.Enter || e.Key == Key.Return)
                 Connect();
         }
-        
+
+        public void Initialize(List<Protocol> protocols = null, List<Country> countries = null)
+        {
+            
+        }
     }
 }

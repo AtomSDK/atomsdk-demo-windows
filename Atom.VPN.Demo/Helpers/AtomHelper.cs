@@ -1,5 +1,6 @@
-﻿using Atom.SDK.Core;
-using Atom.SDK.Core.Models;
+﻿using Atom.Core.Models;
+using Atom.SDK.Core;
+using Atom.Core.Models;
 using Atom.SDK.Net;
 using Atom.VPN.Demo.Models;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo.Helpers
 {

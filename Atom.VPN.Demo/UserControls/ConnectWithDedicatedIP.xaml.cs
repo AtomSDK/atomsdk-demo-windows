@@ -1,15 +1,14 @@
 ﻿using Atom.VPN.Demo.UINotifiers;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 using Atom.VPN.Demo.Interfaces;
-using System.Windows.Controls;
 using Atom.VPN.Demo.Extensions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Atom.VPN.Demo.Helpers;
 using System;
 using Atom.VPN.Demo.Models;
+using Atom.Core.Models;
 using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo.UserControls
@@ -19,6 +18,9 @@ namespace Atom.VPN.Demo.UserControls
     /// </summary>
     public partial class ConnectWithDedicatedIP : UserControlBase, IConnection
     {
+        public List<Protocol> Protocols { get; set; }
+        public List<Country> Countries { get; set; }
+
         public ConnectWithDedicatedIP()
         {
             InitializeComponent();
@@ -57,14 +59,11 @@ namespace Atom.VPN.Demo.UserControls
             }
         }
 
-        public async void Initialize()
+        public async void Initialize(List<Protocol> protocols = null, List<Country> countries = null)
         {
-            var protocols = new List<Protocol>();
-            await Task.Factory.StartNew(() =>
-            {
-                try { protocols = AtomHelper.GetProtocols(); }
-                catch (SDK.Core.AtomException ex) { Messages.ShowMessage(ex); }
-            });
+            Protocols = protocols;
+            Countries = countries;
+
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
         }

@@ -10,6 +10,8 @@ using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Extensions;
 using Atom.VPN.Demo.Models;
 using Atom.SDK.Core;
+using System.Collections.Generic;
+using Atom.Core.Models;
 
 namespace Atom.VPN.Demo
 {
@@ -231,7 +233,6 @@ namespace Atom.VPN.Demo
         private void InitializeSDK(object sender, RoutedEventArgs e)
         {
             InitializeSDK();
-
         }
 
         private async void InitializeSDK()
@@ -241,7 +242,12 @@ namespace Atom.VPN.Demo
                 Messages.ShowMessage(Messages.SecretKeyRquired);
                 return;
             }
+
             IsSDKInitializing = true;
+
+            var countries = new List<Country>();
+            var protocols = new List<Protocol>();
+
             await Task.Factory.StartNew(() =>
             {
                 //Can be initialized using this
@@ -256,16 +262,25 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.Redialing += AtomManagerInstance_Redialing;
 
                 //To get countries
-                //atomManagerInstance.GetCountries();
+                try
+                {
+                    countries = atomManagerInstance.GetCountries();
+                }
+                catch { }
 
                 //To get protocols
-                //atomManagerInstance.GetProtocols();
+                try
+                {
+                    protocols = atomManagerInstance.GetProtocols();
+                }
+                catch { }
 
                 //AtomHelper lets you use the functionality of above created instance in all usercontrols and pages
                 AtomHelper.SetAtomManagerInstance(atomManagerInstance);
             });
-            ConnectionWithDedicatedIP.Initialize();
-            ConnectionWithParams.Initialize();
+
+            ConnectionWithDedicatedIP.Initialize(protocols, countries);
+            ConnectionWithParams.Initialize(protocols, countries);
             IsSDKInitializing = false;
             ISSDKInitialized = true;
             IsConnDisconnAllowed = true;

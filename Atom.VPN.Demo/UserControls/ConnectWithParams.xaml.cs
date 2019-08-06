@@ -1,4 +1,5 @@
-﻿using Atom.SDK.Core.Models;
+﻿using Atom.Core.Models;
+using Atom.SDK.Core.Models;
 using Atom.VPN.Demo.Extensions;
 using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Interfaces;
@@ -16,19 +17,19 @@ namespace Atom.VPN.Demo.UserControls
     /// </summary>
     public partial class ConnectWithParams : UserControlBase, IConnection
     {
+        public List<Protocol> Protocols { get; set; }
+        public List<Country> Countries { get; set; }
+
         public ConnectWithParams()
         {
             InitializeComponent();
         }
 
-        public async void Initialize()
+        public async void Initialize(List<Protocol> protocols = null, List<Country> countries = null)
         {
-            var protocols = new List<Protocol>();
-            await Task.Factory.StartNew(() =>
-            {
-                try { protocols = AtomHelper.GetProtocols(); }
-                catch (SDK.Core.AtomException ex) { Messages.ShowMessage(ex); }
-            });
+            Protocols = protocols;
+            Countries = countries;
+
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
         }
@@ -156,9 +157,9 @@ namespace Atom.VPN.Demo.UserControls
                         if (SecondaryProtocol != null && TertiaryProtocol != null)
                         {
                             CountriesCollection = countries.Where(x =>
-                            x.Protocols.FirstOrDefault(y => y.number == PrimaryProtocol.number) != null &&
-                            x.Protocols.FirstOrDefault(y => y.number == SecondaryProtocol.number) != null &&
-                            x.Protocols.FirstOrDefault(y => y.number == TertiaryProtocol.number) != null
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == PrimaryProtocol.ProtocolSlug) != null &&
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == SecondaryProtocol.ProtocolSlug) != null &&
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == TertiaryProtocol.ProtocolSlug) != null
                             ).ToObservableCollection();
 
                             SelectedCountry = CountriesCollection.FirstOrDefault();
@@ -166,8 +167,8 @@ namespace Atom.VPN.Demo.UserControls
                         else if (SecondaryProtocol != null)
                         {
                             CountriesCollection = countries.Where(x =>
-                            x.Protocols.FirstOrDefault(y => y.number == PrimaryProtocol.number) != null &&
-                            x.Protocols.FirstOrDefault(y => y.number == SecondaryProtocol.number) != null
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == PrimaryProtocol.ProtocolSlug) != null &&
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == SecondaryProtocol.ProtocolSlug) != null
                             ).ToObservableCollection();
 
                             SelectedCountry = CountriesCollection.FirstOrDefault();
@@ -175,8 +176,8 @@ namespace Atom.VPN.Demo.UserControls
                         else if (TertiaryProtocol != null)
                         {
                             CountriesCollection = countries.Where(x =>
-                            x.Protocols.FirstOrDefault(y => y.number == PrimaryProtocol.number) != null &&
-                            x.Protocols.FirstOrDefault(y => y.number == TertiaryProtocol.number) != null
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == PrimaryProtocol.ProtocolSlug) != null &&
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == TertiaryProtocol.ProtocolSlug) != null
                             ).ToObservableCollection();
 
                             SelectedCountry = CountriesCollection.FirstOrDefault();
@@ -184,7 +185,7 @@ namespace Atom.VPN.Demo.UserControls
                         else
                         {
                             CountriesCollection = countries.Where(x =>
-                            x.Protocols.FirstOrDefault(y => y.number == PrimaryProtocol.number) != null
+                            x.Protocols.FirstOrDefault(y => y.ProtocolSlug == PrimaryProtocol.ProtocolSlug) != null
                             ).ToObservableCollection();
 
                             SelectedCountry = CountriesCollection.FirstOrDefault();

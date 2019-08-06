@@ -28,15 +28,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Windows SDK through NuGet.
  
 ```
-Install-Package Atom.SDK.Net -Version 2.1.0
-```
-
-```
-IMPORTANT 
-Due to some compatibility issues, you might need to copy the following files manually from \packages\Atom.SDK.Net.2.1.0\src to your project output directory:
-nfapi.dll
-NetworkUtility.dll
-MixpanelC.dll
+Install-Package Atom.SDK.Net -Version 2.2.0
 ```
 
 Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
