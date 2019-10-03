@@ -17,9 +17,6 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 ## Supported Protocols
 
 * IKEv2
-* L2TP
-* PPTP
-* SSTP
 * TCP
 * UDP
  
