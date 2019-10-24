@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Atom.VPN.Demo" 
         mc:Ignorable="d" xmlns:UI="clr-namespace:Atom.VPN.Demo.UINotifiers"
-        Title="Atom SDK Demo" Height="570" Width="475" ResizeMode="CanMinimize" Closing="ClosingApp" Icon="Resources/ic_atom.ico">
+        Title="Atom SDK Demo" Height="680" Width="515" ResizeMode="CanMinimize" Closing="ClosingApp" Icon="Resources/ic_atom.ico">
     <Grid Margin="5" >
         <StackPanel x:Name="InitSDKPanel" VerticalAlignment="Top" Margin="10,100" Visibility="{Binding ISSDKInitialized, Converter={StaticResource InvertBoolToVis}}" IsEnabled="{Binding IsSDKInitializing, Converter={StaticResource InvertBoolConverter}}">
             <TextBlock Padding="0,10" TextAlignment="Center" HorizontalAlignment="Center" Text="Enter your Secret Key below which is provided by Atom. The SDK Object requires it to be initialized." TextWrapping="Wrap" />
@@ -17,7 +17,7 @@
         <Grid Visibility="{Binding ISSDKInitialized, Converter={StaticResource BoolToVis}}" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="220" />
+                <RowDefinition Height="300" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>

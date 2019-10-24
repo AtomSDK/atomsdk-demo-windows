@@ -31,7 +31,10 @@ namespace Atom.VPN.Demo.Models
         public string TooltipSecondaryProtocol { get { return  "This protocol will be used as secondary protocol to dial the vpn connection."; } }
         public string TooltipTertiaryProtocol { get { return  "This protocol will be used as tertiary protocol to dial the vpn connection."; } }
         public string TooltipCountry { get { return  "An attempt to connect will get fastest servers from the selected country."; } }
-        public string TootlipOptimization { get { return  "If checked, fastest servers will be fetched based on the smartest ping response."; } }
+        public string TooltipCity { get { return "An attempt to connect will get fastest servers from the selected city."; } }
+        public string TooltipChannel { get { return "An attempt to connect will get fastest servers from the selected channel."; } }
+        public string TooltipOptimization { get { return  "If checked, fastest servers will be fetched based on the smartest ping response."; } }
+        public string TooltipSplitTunneling { get { return "Split tunneling"; } }
         public string TooltipCallbacks { get { return  "Displays connection callbacks"; } }
 
         internal static void ShowMessage(string message, string caption = "Atom SDK Demo")
@@ -39,7 +42,7 @@ namespace Atom.VPN.Demo.Models
             MessageBox.Show(message, caption);
         }
 
-        internal static void ShowMessage(SDK.Core.AtomException ex, string caption = "Atom SDK Demo")
+        internal static void ShowMessage(Core.Exceptions.AtomException ex, string caption = "Atom SDK Demo")
         {
             MessageBox.Show(ex.Message + Environment.NewLine + 
                 "ErrorCode: " + ex.ErrorCode + Environment.NewLine + 

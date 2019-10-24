@@ -12,6 +12,7 @@ using Atom.VPN.Demo.Models;
 using Atom.SDK.Core;
 using System.Collections.Generic;
 using Atom.Core.Models;
+using Atom.SDK.Core.Enumerations;
 
 namespace Atom.VPN.Demo
 {
@@ -24,6 +25,8 @@ namespace Atom.VPN.Demo
         {
             InitializeComponent();
         }
+
+        AtomManager atomManagerInstance;
 
         #region Properties
 
@@ -251,15 +254,17 @@ namespace Atom.VPN.Demo
             await Task.Factory.StartNew(() =>
             {
                 //Can be initialized using this
-                AtomManager atomManagerInstance = AtomManager.Initialize(SecretKey);
+                atomManagerInstance = AtomManager.Initialize(SecretKey);
                 //Or this
-                //AtomManager atomManager = AtomManager.Initialize(new AtomConfiguration(SecretKey));
+                //var atomConfig = new AtomConfiguration(SecretKey);
+                //atomManagerInstance = AtomManager.Initialize(atomConfig);
 
                 atomManagerInstance.Connected += AtomManagerInstance_Connected;
                 atomManagerInstance.DialError += AtomManagerInstance_DialError;
                 atomManagerInstance.Disconnected += AtomManagerInstance_Disconnected;
                 atomManagerInstance.StateChanged += AtomManagerInstance_StateChanged;
                 atomManagerInstance.Redialing += AtomManagerInstance_Redialing;
+                atomManagerInstance.OnUnableToAccessInternet += AtomManagerInstance_OnUnableToAccessInternet;
 
                 //To get countries
                 try
@@ -286,10 +291,23 @@ namespace Atom.VPN.Demo
             IsConnDisconnAllowed = true;
         }
 
+        private void AtomManagerInstance_OnUnableToAccessInternet(object sender, SDK.Core.CustomEventArgs.UnableToAccessInternetEventArgs e)
+        {
+            var a = e.ConnectionDetails;
+            ConnectionDialog += "Reconnecting..." + Environment.NewLine;
+            ShowConnectingState(false);
+            atomManagerInstance.ReConnect();
+        }
+
         #region AtomRegisteredEvents
 
         private void AtomManagerInstance_StateChanged(object sender, StateChangedEventArgs e)
         {
+            if (e.State == VPNState.RECONNECTING)
+            {
+                ShowConnectingState(false);
+            }
+
             ConnectionDialog += e.State.ToString() + Environment.NewLine;
         }
 
@@ -300,6 +318,11 @@ namespace Atom.VPN.Demo
             IsConnecting = false;
             IsConnected = true;
             IsConnDisconnAllowed = true;
+
+            if (atomManagerInstance.VPNProperties.UseSplitTunneling)
+            {
+                atomManagerInstance.ApplySplitTunneling(new SDK.Core.Models.SplitApplication() { CompleteExePath = "Chrome.exe" });
+            }
         }
 
         private void AtomManagerInstance_Disconnected(object sender, DisconnectedEventArgs e)
@@ -328,9 +351,11 @@ namespace Atom.VPN.Demo
         #endregion
 
         // Indicates Connecting State
-        public void ShowConnectingState()
+        public void ShowConnectingState(bool isClear = true)
         {
-            ConnectionDialog = string.Empty;
+            if (isClear)
+                ConnectionDialog = string.Empty;
+
             IsConnDisconnAllowed = false;
             IsDisconnected = false;
             IsConnecting = true;

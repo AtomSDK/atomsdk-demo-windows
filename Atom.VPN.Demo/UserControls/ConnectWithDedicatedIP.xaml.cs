@@ -10,6 +10,8 @@ using System;
 using Atom.VPN.Demo.Models;
 using Atom.Core.Models;
 using Atom.SDK.Core.Models;
+using Atom.Core.Enums;
+using System.Linq;
 
 namespace Atom.VPN.Demo.UserControls
 {
@@ -48,6 +50,17 @@ namespace Atom.VPN.Demo.UserControls
             }
         }
 
+        private ObservableCollection<SmartConnectTag> _SmartConnectTagsCollection;
+        public ObservableCollection<SmartConnectTag> SmartConnectTagsCollection
+        {
+            get { return _SmartConnectTagsCollection; }
+            set
+            {
+                _SmartConnectTagsCollection = value;
+                NotifyOfPropertyChange(() => SmartConnectTagsCollection);
+            }
+        }
+
         private Protocol _PrimaryProtocol;
         public Protocol PrimaryProtocol
         {
@@ -59,6 +72,28 @@ namespace Atom.VPN.Demo.UserControls
             }
         }
 
+        private bool _UseSmartConnect;
+        public bool UseSmartConnect
+        {
+            get { return _UseSmartConnect; }
+            set
+            {
+                _UseSmartConnect = value;
+                NotifyOfPropertyChange(() => UseSmartConnect);
+            }
+        }
+
+        private bool _UseDedicatedIP = true;
+        public bool UseDedicatedIP
+        {
+            get { return _UseDedicatedIP; }
+            set
+            {
+                _UseDedicatedIP = value;
+                NotifyOfPropertyChange(() => UseDedicatedIP);
+            }
+        }
+
         public async void Initialize(List<Protocol> protocols = null, List<Country> countries = null)
         {
             Protocols = protocols;
@@ -66,6 +101,8 @@ namespace Atom.VPN.Demo.UserControls
 
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
+
+            SmartConnectTagsCollection = GetSmartConnectTags().ToObservableCollection();
         }
 
         public void Connect()
@@ -85,20 +122,65 @@ namespace Atom.VPN.Demo.UserControls
 
         private bool StartConnection()
         {
-            if (!CanConnect)
+            VPNProperties properties;
+
+            try
             {
-                Messages.ShowMessage(Messages.HostAndProtocolRequired);
+
+                if (UseDedicatedIP)
+                {
+                    if (!CanConnect)
+                    {
+                        Messages.ShowMessage(Messages.HostAndProtocolRequired);
+                        return false;
+                    }
+
+                    properties = new VPNProperties(Host, PrimaryProtocol);
+                }
+                else if (UseSmartConnect)
+                {
+                    List<SmartConnectTag> smartConnectTagsList = new List<SmartConnectTag>();
+
+                    if (SmartConnectTagsListBox?.SelectedItems?.Count > 0)
+                    {
+                        foreach (var item in SmartConnectTagsListBox.SelectedItems)
+                        {
+                            smartConnectTagsList.Add((SmartConnectTag)item);
+                        }
+                    }
+
+                    bool isValidate = AtomHelper.AtomManagerInstance.IsSmartConnectAvailableOnProtocol(PrimaryProtocol, smartConnectTagsList);
+
+                    if (isValidate)
+                        properties = new VPNProperties(PrimaryProtocol, smartConnectTagsList?.Count > 0 ? smartConnectTagsList : null);
+                    else
+                    {
+                        ParentWindow.ConnectionDialog += "No SmartConnect DNS available for dialing or you are not permitted to this resource";
+                        return false;
+                    }
+                }
+                else
+                    return false;
+
+                AtomHelper.Connect(properties);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ParentWindow.ConnectionDialog += ex.Message;
                 return false;
             }
-            var properties = new VPNProperties(Host, PrimaryProtocol);
-            AtomHelper.Connect(properties);
-            return true;
         }
 
         private void DedicatedIPBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
                 Connect();
+        }
+
+        private List<SmartConnectTag> GetSmartConnectTags()
+        {
+            return Enum.GetValues(typeof(SmartConnectTag)).Cast<SmartConnectTag>().ToList();
         }
     }
 }

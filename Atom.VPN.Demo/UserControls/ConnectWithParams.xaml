@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" xmlns:helper="clr-namespace:Atom.VPN.Demo.Helpers"
              xmlns:UI="clr-namespace:Atom.VPN.Demo.UINotifiers"
-             Height="200" Width="400" Background="White">
+             Height="300" Width="400" Background="White">
     <Grid Margin="0,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="400" >
 
         <Grid.RowDefinitions>
@@ -13,7 +13,9 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
 
         <Grid  HorizontalAlignment="Stretch" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipPrimaryProtocol}">
@@ -32,17 +34,49 @@
         </Grid>
 
         <Grid Grid.Row="3" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipCountry}">
-            <Label Content="Select Country:" VerticalContentAlignment="Center"/>
+            <RadioButton x:Name="IsCountrySelected" Margin="4,6,0,0"  IsChecked="{Binding UseCountryConnection}" GroupName="ParamRadios"/>
+            <Label Content="Select Country:" VerticalContentAlignment="Center" Margin="17,0,0,0"/>
             <ComboBox HorizontalAlignment="Right" SelectedIndex="0" ItemsSource="{Binding CountriesCollection}" SelectedValue="{Binding SelectedCountry, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200" />
         </Grid>
 
-        <Grid Grid.Row="4" VerticalAlignment="Center" Margin="4,0,0,0" HorizontalAlignment="Left" ToolTip="{Binding ParentWindow.Messages.TootlipOptimization}">
+        <Grid Grid.Row="4" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipCity}">
+            <RadioButton x:Name="IsCitySelected" Margin="4,6,0,0" IsChecked="{Binding UseCityConnection}" GroupName="ParamRadios"/>
+            <Label Content="Select City:" VerticalContentAlignment="Center" Margin="17,0,0,0"/>
+            <ComboBox HorizontalAlignment="Right" SelectedIndex="0" ItemsSource="{Binding CitiesCollection}" SelectedValue="{Binding SelectedCity, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200" />
+        </Grid>
+
+        <Grid Grid.Row="5" VerticalAlignment="Top" ToolTip="{Binding ParentWindow.Messages.TooltipChannel}">
+            <RadioButton x:Name="IsChannelSelected" Margin="4,6,0,0"  IsChecked="{Binding UseChannelConnection}" GroupName="ParamRadios"/>
+            <Label Content="Select Channel:" VerticalContentAlignment="Center" Margin="17,0,0,0"/>
+            <ComboBox HorizontalAlignment="Right" SelectedIndex="0" ItemsSource="{Binding ChannelsCollection}" SelectedValue="{Binding SelectedChannel, Mode=TwoWay}" VerticalContentAlignment="Center" DisplayMemberPath="Name" Width="200" />
+        </Grid>
+
+        <Grid Grid.Row="6" VerticalAlignment="Center" Margin="4,0,0,0" HorizontalAlignment="Left" ToolTip="{Binding ParentWindow.Messages.TooltipOptimization}">
             <CheckBox IsChecked="{Binding UseOptimization}" Content="Use Optimization" />
         </Grid>
 
-        <Grid Grid.Row="5" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right" ToolTip="{Binding ParentWindow.Messages.TootlipOptimization}" Width="200">
+        <Grid Grid.Row="6" VerticalAlignment="Center" Margin="0,0,150,0" HorizontalAlignment="Right" ToolTip="{Binding ParentWindow.Messages.TootlipOptimization}" Width="116">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="17*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding UseSmartDialing}" Content="Use Smart Dialing" Grid.ColumnSpan="2" />
+        </Grid>
+
+        <Grid Grid.Row="6" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Right" ToolTip="{Binding ParentWindow.Messages.TooltipSplitTunneling}" Width="131">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="17*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox IsChecked="{Binding UseSplitTunneling}" Content="Use Split Tunneling" Grid.ColumnSpan="2" />
+        </Grid>
+
+        <!--<Grid Grid.Row="7" VerticalAlignment="Center" Margin="0,-40,0,0" HorizontalAlignment="Right" ToolTip="{Binding ParentWindow.Messages.TooltipOptimization}" Width="200">
             <CheckBox IsChecked="{Binding UseSmartDialing}" Content="Use Smart Dialing" />
         </Grid>
+        <Grid Grid.Row="8" VerticalAlignment="Center" Margin="4,0,0,0" HorizontalAlignment="Left" ToolTip="{Binding ParentWindow.Messages.TooltipSplitTunneling}" Width="200">
+            <CheckBox IsChecked="{Binding UseSplitTunneling}" Content="Use Split Application" />
+        </Grid>-->
 
     </Grid>
 </UI:UserControlBase>
