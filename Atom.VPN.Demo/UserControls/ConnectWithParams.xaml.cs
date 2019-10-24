@@ -5,10 +5,12 @@ using Atom.VPN.Demo.Helpers;
 using Atom.VPN.Demo.Interfaces;
 using Atom.VPN.Demo.Models;
 using Atom.VPN.Demo.UINotifiers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Atom.VPN.Demo.UserControls
 {
@@ -32,6 +34,10 @@ namespace Atom.VPN.Demo.UserControls
 
             if (ProtocolsCollection == null)
                 ProtocolsCollection = protocols.ToObservableCollection();
+
+            CitiesCollection = AtomHelper.GetCities().ToObservableCollection();
+            ChannelsCollection = AtomHelper.GetChannels().ToObservableCollection();
+            UseCountryConnection = true;
         }
 
         private bool _UseOptimization;
@@ -46,6 +52,17 @@ namespace Atom.VPN.Demo.UserControls
                     UseSmartDialing = false;
 
                 NotifyOfPropertyChange(() => UseOptimization);
+            }
+        }
+
+        private bool _UseSplitTunneling;
+        public bool UseSplitTunneling
+        {
+            get { return _UseSplitTunneling; }
+            set
+            {
+                _UseSplitTunneling = value;
+                NotifyOfPropertyChange(() => UseSplitTunneling);
             }
         }
 
@@ -69,6 +86,43 @@ namespace Atom.VPN.Demo.UserControls
             }
         }
 
+        private bool _UseCountryConnection;
+
+        public bool UseCountryConnection
+        {
+            get => _UseCountryConnection;
+            set
+            {
+                _UseCountryConnection = value;
+                NotifyOfPropertyChange(() => UseCountryConnection);
+            }
+        }
+
+        private bool _UseCityConnection;
+
+        public bool UseCityConnection
+        {
+            get => _UseCityConnection;
+            set
+            {
+                _UseCityConnection = value;
+                NotifyOfPropertyChange(() => UseCityConnection);
+            }
+        }
+
+        private bool _UseChannelConnection;
+
+        public bool UseChannelConnection
+        {
+            get => _UseChannelConnection;
+            set
+            {
+                _UseChannelConnection = value;
+                NotifyOfPropertyChange(() => UseChannelConnection);
+            }
+        }
+
+
         private ObservableCollection<Country> _CountriesCollection;
         public ObservableCollection<Country> CountriesCollection
         {
@@ -80,6 +134,28 @@ namespace Atom.VPN.Demo.UserControls
             }
         }
 
+        private ObservableCollection<City> _CitiesCollection;
+        public ObservableCollection<City> CitiesCollection
+        {
+            get { return _CitiesCollection; }
+            set
+            {
+                _CitiesCollection = value;
+                NotifyOfPropertyChange(() => CitiesCollection);
+            }
+        }
+
+        private ObservableCollection<Channel> _ChannelsCollection;
+        public ObservableCollection<Channel> ChannelsCollection
+        {
+            get { return _ChannelsCollection; }
+            set
+            {
+                _ChannelsCollection = value;
+                NotifyOfPropertyChange(() => ChannelsCollection);
+            }
+        }
+
         private Country selectedCountry;
         public Country SelectedCountry
         {
@@ -88,6 +164,28 @@ namespace Atom.VPN.Demo.UserControls
             {
                 selectedCountry = value;
                 NotifyOfPropertyChange(() => SelectedCountry);
+            }
+        }
+
+        private City selectedCity;
+        public City SelectedCity
+        {
+            get { return selectedCity; }
+            set
+            {
+                selectedCity = value;
+                NotifyOfPropertyChange(() => SelectedCity);
+            }
+        }
+
+        private Channel selectedChannel;
+        public Channel SelectedChannel
+        {
+            get { return selectedChannel; }
+            set
+            {
+                selectedChannel = value;
+                NotifyOfPropertyChange(() => SelectedChannel);
             }
         }
 
@@ -213,19 +311,47 @@ namespace Atom.VPN.Demo.UserControls
 
         private bool StartConnection()
         {
-            if (!CanConnect)
+            try
             {
-                Messages.ShowMessage(Messages.SelectProtocolCountry);
+                if (!CanConnect)
+                {
+                    Messages.ShowMessage(Messages.SelectProtocolCountry);
+                    return false;
+                }
+
+                VPNProperties properties;
+
+                if (UseCountryConnection)
+                {
+                    properties = new VPNProperties(SelectedCountry, PrimaryProtocol);
+                    properties.UseOptimization = UseOptimization;
+                    properties.UseSmartDialing = UseSmartDialing;
+                }
+                else if (UseCityConnection)
+                {
+                    properties = new VPNProperties(SelectedCity, PrimaryProtocol);
+                    properties.UseOptimization = UseOptimization;
+                }
+                else if (UseChannelConnection)
+                {
+                    properties = new VPNProperties(SelectedChannel, PrimaryProtocol);
+                }
+                else
+                    return false;
+
+                properties.SecondaryProtocol = SecondaryProtocol;
+                properties.TertiaryProtocol = TertiaryProtocol;
+                properties.UseSplitTunneling = UseSplitTunneling;
+
+                AtomHelper.Connect(properties);
+
+                return true;
+            }
+            catch (Exception e) 
+            {
+                ParentWindow.ConnectionDialog += e.Message + Environment.NewLine;
                 return false;
             }
-
-            var properties = new VPNProperties(SelectedCountry, PrimaryProtocol);
-            properties.UseOptimization = UseOptimization;
-            properties.UseSmartDialing = UseSmartDialing;
-            properties.SecondaryProtocol = SecondaryProtocol;
-            properties.TertiaryProtocol = TertiaryProtocol;
-            AtomHelper.Connect(properties);
-            return true;
         }
 
     }

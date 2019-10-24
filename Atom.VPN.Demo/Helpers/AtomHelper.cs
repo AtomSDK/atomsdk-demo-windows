@@ -20,7 +20,7 @@ namespace Atom.VPN.Demo.Helpers
         /// <summary>
         /// Instance of AtomManager to be used for VPN connection
         /// </summary>
-        private static AtomManager AtomManagerInstance { get; set; }
+        internal static AtomManager AtomManagerInstance { get; set; }
 
         /// <summary>
         /// Sets the AtomManagerInstance property
@@ -194,6 +194,24 @@ namespace Atom.VPN.Demo.Helpers
         internal static List<Country> GetSmartCountries()
         {
             return AtomManagerInstance.GetCountriesForSmartDialing();
+        }
+
+        /// <summary>
+        /// Fetches the list of cities using AtomManager instance
+        /// </summary>
+        /// <returns>List of allowed cities</returns>
+        internal static List<City> GetCities()
+        {
+            return AtomManagerInstance.GetCities();
+        }
+
+        /// <summary>
+        /// Fetches the list of channels using AtomManager instance
+        /// </summary>
+        /// <returns>List of allowed channels</returns>
+        internal static List<Channel> GetChannels()
+        {
+            return AtomManagerInstance.GetChannels();
         }
 
     }
