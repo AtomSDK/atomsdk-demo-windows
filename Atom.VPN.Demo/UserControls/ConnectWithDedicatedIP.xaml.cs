@@ -162,6 +162,7 @@ namespace Atom.VPN.Demo.UserControls
                 else
                     return false;
 
+                properties.DoCheckInternetConnectivity = true;
                 AtomHelper.Connect(properties);
                 return true;
             }

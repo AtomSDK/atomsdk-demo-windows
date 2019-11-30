@@ -41,27 +41,23 @@
     <ApplicationIcon>Resources\ic_atom.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Atom.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.Core.Net.1.1.0\lib\net45\Atom.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Atom.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.Core.Net.1.2.0\lib\net45\Atom.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Atom.SDK.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.3.0.0\lib\net45\Atom.SDK.Core.dll</HintPath>
+    <Reference Include="Atom.SDK.Core, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.3.1.0\lib\Atom.SDK.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Atom.SDK.Net, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.3.0.0\lib\net45\Atom.SDK.Net.dll</HintPath>
+    <Reference Include="Atom.SDK.Net, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.3.1.0\lib\Atom.SDK.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="SimpleInjector, Version=4.6.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleInjector.4.6.0\lib\net45\SimpleInjector.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,12 +164,12 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Atom.SDK.Net.3.0.0\build\Atom.SDK.Net.targets" Condition="Exists('..\packages\Atom.SDK.Net.3.0.0\build\Atom.SDK.Net.targets')" />
+  <Import Project="..\packages\Atom.SDK.Net.3.1.0\build\Atom.SDK.Net.targets" Condition="Exists('..\packages\Atom.SDK.Net.3.1.0\build\Atom.SDK.Net.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Atom.SDK.Net.3.0.0\build\Atom.SDK.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Atom.SDK.Net.3.0.0\build\Atom.SDK.Net.targets'))" />
+    <Error Condition="!Exists('..\packages\Atom.SDK.Net.3.1.0\build\Atom.SDK.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Atom.SDK.Net.3.1.0\build\Atom.SDK.Net.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
