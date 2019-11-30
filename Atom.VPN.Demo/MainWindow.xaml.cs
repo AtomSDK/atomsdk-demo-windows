@@ -294,9 +294,17 @@ namespace Atom.VPN.Demo
         private void AtomManagerInstance_OnUnableToAccessInternet(object sender, SDK.Core.CustomEventArgs.UnableToAccessInternetEventArgs e)
         {
             var a = e.ConnectionDetails;
-            ConnectionDialog += "Reconnecting..." + Environment.NewLine;
-            ShowConnectingState(false);
-            atomManagerInstance.ReConnect();
+            string message = "UTB Occured, Due want to Reconnect?";
+            string caption = "Confirmation";
+            MessageBoxButton buttons = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Question;
+
+            if (MessageBox.Show(message, caption, buttons, icon) == MessageBoxResult.Yes)
+            {
+                ConnectionDialog += "Reconnecting..." + Environment.NewLine;
+                ShowConnectingState(false);
+                atomManagerInstance.ReConnect();
+            }
         }
 
         #region AtomRegisteredEvents

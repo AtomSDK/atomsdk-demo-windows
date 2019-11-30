@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Atom.SDK.Core.Models;
+using System.Windows;
 
 namespace Atom.VPN.Demo.Helpers
 {
@@ -202,7 +203,15 @@ namespace Atom.VPN.Demo.Helpers
         /// <returns>List of allowed cities</returns>
         internal static List<City> GetCities()
         {
-            return AtomManagerInstance.GetCities();
+            try
+            {
+                return AtomManagerInstance.GetCities();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -211,7 +220,15 @@ namespace Atom.VPN.Demo.Helpers
         /// <returns>List of allowed channels</returns>
         internal static List<Channel> GetChannels()
         {
-            return AtomManagerInstance.GetChannels();
+            try
+            {
+                return AtomManagerInstance.GetChannels();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
         }
 
     }

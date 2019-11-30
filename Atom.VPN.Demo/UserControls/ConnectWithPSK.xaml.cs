@@ -57,6 +57,7 @@ namespace Atom.VPN.Demo.UserControls
                 return false;
             }
             var properties = new VPNProperties(PSK);
+            properties.DoCheckInternetConnectivity = true;
             AtomHelper.Connect(properties);
             return true;
         }

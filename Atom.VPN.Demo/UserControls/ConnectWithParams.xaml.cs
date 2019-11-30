@@ -342,6 +342,7 @@ namespace Atom.VPN.Demo.UserControls
                 properties.SecondaryProtocol = SecondaryProtocol;
                 properties.TertiaryProtocol = TertiaryProtocol;
                 properties.UseSplitTunneling = UseSplitTunneling;
+                properties.DoCheckInternetConnectivity = true;
 
                 AtomHelper.Connect(properties);
 
