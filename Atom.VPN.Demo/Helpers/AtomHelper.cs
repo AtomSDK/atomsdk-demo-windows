@@ -1,6 +1,5 @@
 ﻿using Atom.Core.Models;
 using Atom.SDK.Core;
-using Atom.Core.Models;
 using Atom.SDK.Net;
 using Atom.VPN.Demo.Models;
 using System;
