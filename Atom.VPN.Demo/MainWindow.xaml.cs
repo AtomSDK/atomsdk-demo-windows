@@ -265,6 +265,9 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.StateChanged += AtomManagerInstance_StateChanged;
                 atomManagerInstance.Redialing += AtomManagerInstance_Redialing;
                 atomManagerInstance.OnUnableToAccessInternet += AtomManagerInstance_OnUnableToAccessInternet;
+                atomManagerInstance.SDKAlreadyInitialized += AtomManagerInstance_SDKAlreadyInitialized;
+                
+                atomManagerInstance.AutoRedialOnConnectionDrop = true;
 
                 //To get countries
                 try
@@ -291,6 +294,13 @@ namespace Atom.VPN.Demo
             IsConnDisconnAllowed = true;
         }
 
+        #region AtomRegisteredEvents
+
+        private void AtomManagerInstance_SDKAlreadyInitialized(object sender, ErrorEventArgs e)
+        {
+            Dispatcher.Invoke(() => MessageBox.Show(e.Message + Environment.NewLine + e.Exception?.Message));
+        }
+
         private void AtomManagerInstance_OnUnableToAccessInternet(object sender, SDK.Core.CustomEventArgs.UnableToAccessInternetEventArgs e)
         {
             var a = e.ConnectionDetails;
@@ -306,8 +316,6 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.ReConnect();
             }
         }
-
-        #region AtomRegisteredEvents
 
         private void AtomManagerInstance_StateChanged(object sender, StateChangedEventArgs e)
         {
@@ -402,12 +410,26 @@ namespace Atom.VPN.Demo
 
         private void Disconnect()
         {
-            AtomHelper.Disconnect();
+            try
+            {
+                AtomHelper.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                ConnectionDialog += $"{ex.Message}";
+            }
         }
 
         private void Cancel()
         {
-            AtomHelper.Cancel();
+            try
+            {
+                AtomHelper.Cancel();
+            }
+            catch (Exception ex)
+            {
+                ConnectionDialog += $"{ex.Message}";
+            }
         }
 
         private void ClosingApp(object sender, System.ComponentModel.CancelEventArgs e)

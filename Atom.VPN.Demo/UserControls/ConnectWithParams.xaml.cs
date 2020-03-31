@@ -343,6 +343,8 @@ namespace Atom.VPN.Demo.UserControls
                 properties.TertiaryProtocol = TertiaryProtocol;
                 properties.UseSplitTunneling = UseSplitTunneling;
                 properties.DoCheckInternetConnectivity = true;
+                properties.EnableDNSLeakProtection = true;
+                properties.EnableIPv6LeakProtection = true;
 
                 AtomHelper.Connect(properties);
 
