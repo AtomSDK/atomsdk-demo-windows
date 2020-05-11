@@ -266,6 +266,7 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.Redialing += AtomManagerInstance_Redialing;
                 atomManagerInstance.OnUnableToAccessInternet += AtomManagerInstance_OnUnableToAccessInternet;
                 atomManagerInstance.SDKAlreadyInitialized += AtomManagerInstance_SDKAlreadyInitialized;
+                atomManagerInstance.ConnectedLocation += AtomManagerInstance_ConnectedLocation;
                 
                 atomManagerInstance.AutoRedialOnConnectionDrop = true;
 
@@ -292,6 +293,39 @@ namespace Atom.VPN.Demo
             IsSDKInitializing = false;
             ISSDKInitialized = true;
             IsConnDisconnAllowed = true;
+        }
+
+        private void AtomManagerInstance_ConnectedLocation(object sender, ConnectedLocationEventArgs e)
+        {
+            try
+            {
+                var location = atomManagerInstance.GetConnectedLocation();
+
+                if (location != null)
+                {
+                    ConnectionDialog += $"IP: {location.Ip} {Environment.NewLine}";
+
+                    if (location.Country != null)
+                        ConnectionDialog += $"Country: {location.Country.Name} {Environment.NewLine}";
+
+                    if (location.City != null)
+                        ConnectionDialog += $"City: {location.City.Name} {Environment.NewLine}";
+                }
+            }
+            catch (Exception ex)
+            {
+                ConnectionDialog += ex.Message + Environment.NewLine;
+
+                if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message) && !string.IsNullOrWhiteSpace(ex.InnerException.Message))
+                {
+                    ConnectionDialog += ex.InnerException.Message + Environment.NewLine;
+
+                    if (ex.InnerException.InnerException != null && string.IsNullOrWhiteSpace(ex.InnerException.InnerException.Message))
+                        ConnectionDialog += ex.InnerException.InnerException.Message + Environment.NewLine;
+                    else
+                        ConnectionDialog += "No other inner exception message" + Environment.NewLine;
+                }
+            }
         }
 
         #region AtomRegisteredEvents
