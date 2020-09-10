@@ -24,6 +24,7 @@ namespace Atom.VPN.Demo
         public MainWindow()
         {
             InitializeComponent();
+            ActionButton.IsEnabled = false;
         }
 
         AtomManager atomManagerInstance;
@@ -267,6 +268,8 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.OnUnableToAccessInternet += AtomManagerInstance_OnUnableToAccessInternet;
                 atomManagerInstance.SDKAlreadyInitialized += AtomManagerInstance_SDKAlreadyInitialized;
                 atomManagerInstance.ConnectedLocation += AtomManagerInstance_ConnectedLocation;
+                atomManagerInstance.AtomInitialized += AtomManagerInstance_AtomInitialized;
+                atomManagerInstance.AtomDependenciesMissing += AtomManagerInstance_AtomDependenciesMissing;
                 
                 atomManagerInstance.AutoRedialOnConnectionDrop = true;
 
@@ -396,6 +399,16 @@ namespace Atom.VPN.Demo
         private void AtomManagerInstance_Redialing(object sender, ErrorEventArgs e)
         {
             ConnectionDialog += e.Message + Environment.NewLine;
+        }
+
+        private void AtomManagerInstance_AtomInitialized(object sender, SDK.Core.CustomEventArgs.AtomInitializedEventArgs e)
+        {
+            Dispatcher.Invoke(() => { ActionButton.IsEnabled = true; });
+        }
+
+        private void AtomManagerInstance_AtomDependenciesMissing(object sender, SDK.Core.CustomEventArgs.AtomDependenciesMissingEventArgs e)
+        {
+            MessageBox.Show(e?.Exception?.ErrorMessage);
         }
 
         #endregion
