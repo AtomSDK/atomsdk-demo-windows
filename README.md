@@ -34,7 +34,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Network SDK through NuGet.
  
 ```csharp
-Install-Package Atom.SDK.Net -Version 3.5.0
+Install-Package Atom.SDK.Net -Version 3.6.0
 ```
 
 Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
@@ -74,7 +74,7 @@ PS: ATOM SDK is a singleton, and must be initialized before accessing its method
  
  
  
- ## Events to Register
+## Events to Register
 
 ATOM SDK offers five events to register for the ease of the developer.
  
@@ -84,6 +84,9 @@ ATOM SDK offers five events to register for the ease of the developer.
 * DialError
 * Redialing
 * OnUnableToAccessInternet
+* AtomInitialized
+* AtomDependenciesMissing
+* PacketsTransmitted 
 
  Details of these events can be seen in the inline documentation or method summaries. You need to register these events to get notified about what’s happening behind the scenes
  
@@ -94,9 +97,13 @@ atomManagerInstance.Disconnected += AtomManagerInstance_Disconnected;
 atomManagerInstance.StateChanged += AtomManagerInstance_StateChanged;
 atomManagerInstance.Redialing += AtomManagerInstance_Redialing;
 atomManagerInstance.OnUnableToAccessInternet+= AtomManagerInstance_OnUnableToAccessInternet;
+atomManagerInstance.AtomInitialized += AtomManagerInstance_AtomInitialized;
+atomManagerInstance.AtomDependenciesMissing += AtomManagerInstance_AtomDependenciesMissing;
 ```
 Events will be registered with the respective EventArgs customized for the ease of the developer.
+
 ## VPN Authentication
+
 ATOM SDK provided two ways to authenticate your vpn user.
 First one is to offer VPN Credentials directly to the SDK which you may create through the Admin Panel provided by ATOM.
 
@@ -130,12 +137,51 @@ You can get the Countries those support Smart Dialing through ATOM SDK.
 var countries = AtomManagerInstance.GetCountriesForSmartDialing();
 ```
 
+## Fetch Recommended Country
+You can get the Recommended Country for user's location through ATOM SDK.
+```csharp
+var recommendedCountry = AtomManagerInstance.GetRecommendedCountry();
+```
+
 ## Fetch Protocols
 Protocols can be obtained through ATOM SDK as well.
 
 ```csharp
 var protocols = atomManagerInstance.GetProtocols(); 
 ```
+
+##  VPN Connection Speed
+For VPN connection speed you need to registor PacketsTransmitted event from AtomManager class to get the VPN connection speed in bytes per second. This callback is recieve only in VPN connected state.
+
+```csharp
+atomManagerInstance.PacketsTransmitted  
+```
+
+## Protocol switch 
+You can enable or disable protocol switch from VPNProperties class. By default its value is set to true.
+
+````
+VPNPorperties.EnableProtocolSwitch = false;
+````
+or
+````
+VPNPorperties.EnableProtocolSwitch = true;
+````
+
+## Recommanded protocol
+If you didn't specify the protocol in case of Country, City and Channel dailing then Atom SDK dialed with recommanded protocol according to the specified country, city and channel.
+It did not work in PSK, Smart connect dialing and dedicated IP.
+
+## Use Failover
+Failover is a mechanism in which Atom dialed with nearest server if requested server is busy or not found for any reason. You can control this mechanism from VPNPorperties class. By default its value is set to true.
+
+````
+VPNPorperties.UseFailover = false;
+````
+or
+````
+VPNPorperties.UseFailover = true;
+````
 
 ## How to Connect
 
@@ -152,6 +198,14 @@ var vpnProperties = new VPNProperties(Country country, Protocol protocol);
 atomManagerInstance.Connect(properties);
 ``` 
 From version 3.0 onwards, Atom has introduced connection with Cities and Channels. You can found their corresponding *VPNProperties* constructors in the Demo Application.
+
+### Include or Exclude Server with Nas Identifier
+When connecting with parameters, a server can be included or excluded with its Nas Identifier
+```csharp
+var vpnProperties = new VPNProperties(Country country, Protocol protocol);
+vpnProperties.ServerFilter = new ServerFilter { FilterType = SDK.Core.Enumerations.ServerFilterType.Include, NASIdentifier = "nas-identifier-here" };
+vpnProperties.ServerFilter = new ServerFilter { FilterType = SDK.Core.Enumerations.ServerFilterType.Exclude, NASIdentifier = "nas-identifier-here" };
+``` 
 
 ### Connection with Pre-Shared Key (PSK)
 In this way of connection, it is pre-assumed that you have your own backend server which communicates with ATOM Backend APIs directly and creates a Pre-Shared Key (usually called as PSK) which you can then provide to the SDK for dialing. While providing PSK, no VPN Property other than PSK is required to make the connection. ATOM SDK will handle the rest.
