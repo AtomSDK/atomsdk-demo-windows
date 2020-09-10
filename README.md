@@ -165,7 +165,7 @@ VPNPorperties.EnableProtocolSwitch = false;
 ````
 or
 ````
-VPNPorperties.EnableProtocolSwitch = false;
+VPNPorperties.EnableProtocolSwitch = true;
 ````
 
 ## Recommanded protocol
