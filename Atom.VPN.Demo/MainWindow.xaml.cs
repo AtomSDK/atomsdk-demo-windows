@@ -13,6 +13,7 @@ using Atom.SDK.Core;
 using System.Collections.Generic;
 using Atom.Core.Models;
 using Atom.SDK.Core.Enumerations;
+using Atom.SDK.Core.Models;
 
 namespace Atom.VPN.Demo
 {
@@ -271,6 +272,12 @@ namespace Atom.VPN.Demo
                 atomManagerInstance.AtomInitialized += AtomManagerInstance_AtomInitialized;
                 atomManagerInstance.AtomDependenciesMissing += AtomManagerInstance_AtomDependenciesMissing;
                 
+                // Add sensitive application that needs to be close if network connections drops automatically.
+                atomManagerInstance.SensitiveApplications = new List<SensitiveApplication>() 
+                { 
+                    new SensitiveApplication() { CompleteExePath = @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" }
+                };
+
                 atomManagerInstance.AutoRedialOnConnectionDrop = true;
 
                 //To get countries
