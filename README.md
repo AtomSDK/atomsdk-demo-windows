@@ -168,8 +168,8 @@ or
 VPNPorperties.EnableProtocolSwitch = true;
 ````
 
-## Recommanded protocol
-If you didn't specify the protocol in case of Country, City and Channel dailing then Atom SDK dialed with recommanded protocol according to the specified country, city and channel.
+## Recommended protocol
+If you didn't specify the protocol in case of Country, City and Channel dailing then Atom SDK dialed with recommended protocol according to the specified country, city and channel.
 It did not work in PSK, Smart connect dialing and dedicated IP.
 
 ## Use Failover
