@@ -345,6 +345,7 @@ namespace Atom.VPN.Demo.UserControls
                 properties.DoCheckInternetConnectivity = true;
                 properties.EnableDNSLeakProtection = true;
                 properties.EnableIPv6LeakProtection = true;
+                properties.EnableIKS = true;
 
                 AtomHelper.Connect(properties);
 
