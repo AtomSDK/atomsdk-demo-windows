@@ -255,11 +255,10 @@ namespace Atom.VPN.Demo
 
             await Task.Factory.StartNew(() =>
             {
-                //Can be initialized using this
-                atomManagerInstance = AtomManager.Initialize(SecretKey);
-                //Or this
-                //var atomConfig = new AtomConfiguration(SecretKey);
-                //atomManagerInstance = AtomManager.Initialize(atomConfig);
+                var atomConfig = new AtomConfiguration(SecretKey);
+                atomConfig.PersistVPNDetails = true;
+                atomConfig.VpnInterfaceName = "AtomDemo";
+                atomManagerInstance = AtomManager.Initialize(atomConfig);
 
                 atomManagerInstance.Connected += AtomManagerInstance_Connected;
                 atomManagerInstance.DialError += AtomManagerInstance_DialError;

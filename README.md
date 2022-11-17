@@ -1,4 +1,4 @@
-﻿# ATOM VPN SDK demo for Windows Desktop Applications
+﻿ # ATOM VPN SDK demo for Windows Desktop Applications
 
 ﻿
 This is a demo application for Windows Desktop Applications with basic usage of ATOM VPN SDK which will help the developers to create smooth applications over ATOM SDK quickly.
@@ -35,7 +35,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Network SDK through NuGet.
  
 ```csharp
-Install-Package Atom.SDK.Net -Version 3.7.0
+Install-Package Atom.SDK.Net -Version 4.3.0
 ```
 
 Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
@@ -57,7 +57,7 @@ It can be initialized using an instance of AtomConfiguration. It should have a V
 
 ```csharp
 var atomConfiguration = new AtomConfiguration(“SECRETKEY_GOES_HERE”);
-atomConfiguration.VpnInterfaceName = "Atom";
+atomConfiguration.VpnInterfaceName = "AtomDemo";
 atomConfiguration.BaseUrl = new Uri("YOUR_BASE_URL"); // Optional
 var atomManagerInstance = AtomManager.Initialize(atomConfiguration);
 ```
@@ -77,7 +77,7 @@ PS: ATOM SDK is a singleton, and must be initialized before accessing its method
  
 ## Events to Register
 
-ATOM SDK offers five events to register for the ease of the developer.
+ATOM SDK offers few events to register for the ease of the developer.
  
 * StateChanged
 * Connected
