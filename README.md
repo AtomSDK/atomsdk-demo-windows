@@ -28,6 +28,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 * IKEv2
 * TCP
 * UDP
+* WireGuard
  
 ## SDK Installation
  
