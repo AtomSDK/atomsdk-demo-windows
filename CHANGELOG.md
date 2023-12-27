@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 4.2.0
+
+#### Added
+- Mechanism to detect inability to access the internet when VPN is connected.
+- Split tunneling support for WireGuard.
+
+#### Fixed
+- Bugs related to WireGuard connections.
+
 ### Version 4.0.1
 
 #### Fixed
