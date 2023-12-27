@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 4.3.0
+
+#### Added
+- Enabled obfuscated server dialing from policy JSON.
+- Support for quantum resistance servers.
+- New property `EnableDownloadSpeedDiagnostics` in `VPNProperties` for post-connection speed diagnostics.
+
 ### Version 4.2.0
 
 #### Added
