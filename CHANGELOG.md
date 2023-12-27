@@ -8,6 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 #### Added
 - Support for OpenVPN obfuscation dialing.
-- 
+  
 #### Fixed
 - General bug fixes.
