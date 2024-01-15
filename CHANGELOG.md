@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 4.4.0
+
+### Added
+
+#### Enhanced IPv6 Protection:
+- Strengthened the Windows service with improved IPv6 protection to ensure advanced security measures.
+
+#### Improved WireGuard Connection:
+- Enhanced the overall performance and reliability of WireGuard connections for a seamless user experience.
+
+#### Improved Obfuscated Dialing of OpenVPN:
+- Upgraded the OpenVPN integration with improved obfuscated dialing mechanisms, enhancing security and privacy.
+
+#### Whitelabeling of WireGuard Adapter Name:
+- Implemented the ability to whitelist WireGuard adapter names, providing users with more control and customization options.
+
+#### Added Support for IP Translation (NAT/Non-NAT) DNSs:
+- Introduced support for IP translation (NAT/Non-NAT) DNSs, expanding compatibility and flexibility in network configurations.
+
+#### New Mechanism to Detect UTB:
+- Implemented a new mechanism to detect when the internet is not available during the connection state.
+
+#### Manual IKS Feature:
+- Introduced a manual In-Kind Service (IKS) feature, allowing users to manually configure and manage specific aspects of the service according to their preferences.
+
+#### Updated .NET Framework Version:
+- Atom SDK has been upgraded from .NET Framework 4.5 to 4.6
+
 ### Version 4.3.0
 
 #### Added
