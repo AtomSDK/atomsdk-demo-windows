@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 4.5.0
+
+### Added
+
+#### New Dedicated VPS Dialing
+- Introducing the capability for users to connect through a dedicated Virtual Private Server (VPS) for enhanced and secure connectivity.
+
+#### Improved Handling of DNS Leak with IKS
+- Enhanced the handling of DNS leaks when utilizing the Internet Kill Switch (IKS), further strengthening privacy and security.
+
+#### Enabled DNS Leak Protection for Split Tunneling with WireGuard Protocol
+- Users can now benefit from DNS leak protection when employing split tunneling with the WireGuard protocol, ensuring comprehensive security.
+
+#### Improved WireGuard Adapter for Better Connectivity
+- Optimized the WireGuard adapter to enhance connectivity, providing a smoother and more reliable user experience.
+
+#### Enhanced Manual IKS Functionality
+- Improved the functionality of Manual Internet Kill Switch (IKS), offering resllers greater control and customization options.
+
+#### Add new "AllowLocalNetworkTraffic" Property in VPN Properties Class
+- Added the `AllowLocalNetworkTraffic` property in the VPN properties class, enabling users to manage their local LAN connection while connected to the VPN.
+**Note:**
+The current version of IKEv2 does not support the `AllowLocalNetworkTraffic` feature. Future updates may include support for IKEv2.
+
+#### Integrated New OpenVPN Version 2.6.8
+- Updated the OpenVPN version to 2.6.8, incorporating the latest improvements and security enhancements.
+
+### Fixed
+
+#### Fixed Bug in Connection Over Connection
+- Resolved a bug related to connection over connection, ensuring a stable and reliable connection experience.
+
+#### Fixed DNS Leak Issue on Auto Disconnect
+- Addressed and fixed a DNS leak issue occurring during auto disconnect, enhancing overall privacy and security.
+
 ### Version 4.4.0
 
 ### Added
