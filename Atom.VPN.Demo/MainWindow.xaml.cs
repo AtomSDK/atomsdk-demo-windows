@@ -255,9 +255,8 @@ namespace Atom.VPN.Demo
 
             await Task.Factory.StartNew(() =>
             {
-                var atomConfig = new AtomConfiguration(SecretKey);
+                var atomConfig = new AtomConfiguration(SecretKey, "AtomTestService", "AtomTest", "AtomTestVPN");
                 atomConfig.PersistVPNDetails = true;
-                atomConfig.VpnInterfaceName = "AtomDemo";
                 atomManagerInstance = AtomManager.Initialize(atomConfig);
 
                 atomManagerInstance.Connected += AtomManagerInstance_Connected;

@@ -41,20 +41,20 @@
     <ApplicationIcon>Resources\ic_atom.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Atom.Core, Version=1.11.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.Core.Net.1.11.0\lib\net45\Atom.Core.dll</HintPath>
+    <Reference Include="Atom.Core, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.Core.Net.2.0.0\lib\net45\Atom.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Atom.SDK.Core, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.4.5.1\lib\net46\Atom.SDK.Core.dll</HintPath>
+    <Reference Include="Atom.SDK.Core, Version=5.0.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.5.0.0\lib\net46\Atom.SDK.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Atom.SDK.Net, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Atom.SDK.Net.4.5.1\lib\net46\Atom.SDK.Net.dll</HintPath>
+    <Reference Include="Atom.SDK.Net, Version=5.0.0.19, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Atom.SDK.Net.5.0.0\lib\net46\Atom.SDK.Net.dll</HintPath>
     </Reference>
     <Reference Include="Curve25519, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Curve25519.1.0.1\lib\net20\Curve25519.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Net.Ping, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Ping.4.3.0\lib\net46\System.Net.Ping.dll</HintPath>
       <Private>True</Private>
@@ -172,12 +173,12 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Atom.SDK.Net.4.5.1\build\Atom.SDK.Net.targets" Condition="Exists('..\packages\Atom.SDK.Net.4.5.1\build\Atom.SDK.Net.targets')" />
+  <Import Project="..\packages\Atom.SDK.Net.5.0.0\build\Atom.SDK.Net.targets" Condition="Exists('..\packages\Atom.SDK.Net.5.0.0\build\Atom.SDK.Net.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Atom.SDK.Net.4.5.1\build\Atom.SDK.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Atom.SDK.Net.4.5.1\build\Atom.SDK.Net.targets'))" />
+    <Error Condition="!Exists('..\packages\Atom.SDK.Net.5.0.0\build\Atom.SDK.Net.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Atom.SDK.Net.5.0.0\build\Atom.SDK.Net.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
