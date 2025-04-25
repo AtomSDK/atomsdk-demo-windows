@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 5.0.0
+
+### New Features
+- Introduced white-labeled service for each partner.
+- Introduced Pause and Resume VPN functionality.
+- Introduced the Ad Blocker feature.
+
+### Features Enhancements
+- Enabled tracker blocker for Dedicated IP.
+- Enhanced LFO dialing (Exclude `TAG_FREEMIUM` from the DNS list when the user is PREMIUM).
+- Updated OpenVPN to version 2.6.12.
+- Added "Bypass LAN" support for the IKEv2 protocol.
+- Updated Netfilter SDK to version 1.7.0.2.
+- Added options for TAP Adapter installation in the Atom SDK Installer.
+- Enabled WireGuard protocol on Multi-Dedicated DNS.
+- Enabled TB and Ad blocker functionality for Dedicated VPS Dialing.
+
+### Fixes
+- Fixed Wintun Adapter issue for OpenVPN dialing.
+- Fixed Ras Dialing error codes.
+- Fixed Atom Shield connectivity issues with the IKEv2 protocol.
+- Fixed vulnerabilities
+- Resolved DNS leak issue on auto disconnect.
+- Removed empty entry of AtomInstaller in the Application Install list.
+- Resolved Atom SDK failure to retrieve data from local storage when S3 was blocked.
+- Enhanced LFO dialing based on provided filters.
+- Fixed bug that prevented Background Service from opening on certain computers.
+- Fixed file delete error during installation and packet transmission issues with the TAP adapter.
+
 ### Version 4.5.1
 
 ### Fixed

@@ -44,19 +44,11 @@ Run Atom.SDK.Installer.exe to install supporting services and drivers on any sys
 Atom.SDK.Net.dll.config file should be copied to the output directory where Atom.SDK.Net.dll is present (only if the config file is not already there) since AtomSDK will read the name of your RAS VPN Adapter mentioned in this config against RAS_ADAPTER_NAME key.
 
 # Getting Started with the Code
- ATOM SDK needs to be initialized with a “SecretKey” provided to you after you buy the subscription which is typically a hex-numeric literal.
+
+ATOM SDK needs to be initialized using an instance of AtomConfiguration. It should have a VpnInterfaceName which will be used to create the Network Interface for VPN connection.
 
 ```csharp
-var atomManagerInstance = AtomManager.Initialize(“SECRETKEY_GOES_HERE”);
-```
-
-
-OR 
-
-It can be initialized using an instance of AtomConfiguration. It should have a VpnInterfaceName which will be used to create the Network Interface for VPN connection.
-
-```csharp
-var atomConfiguration = new AtomConfiguration(“SECRETKEY_GOES_HERE”);
+var atomConfiguration = new AtomConfiguration(“SECRETKEY_GOES_HERE”, “INSTALLED_SERVICE_NAME_GOES_HERE”, “INSTALLED_DIRECTORY_FOLDER_NAME_GOES_HERE”, “CUSTOM_VPN_INTERFACE_NAME_GOES_HERE”);
 atomConfiguration.VpnInterfaceName = "AtomDemo";
 atomConfiguration.BaseUrl = new Uri("YOUR_BASE_URL"); // Optional
 var atomManagerInstance = AtomManager.Initialize(atomConfiguration);
@@ -276,6 +268,273 @@ atomManagerInstance.Cancel();
 ```
 atomManagerInstance.Disconnect();
 ```
+
+
+# OpenVPN Dialing Using Wintun Adapter
+This section outlines the steps required to establish an OpenVPN connection using the Wintun adapter. It involves enabling the **UseTunnelAdapterForOpenVPNDialing** property within the **VPNProperties** class.
+
+## Steps to Enable Wintun Adapter for OpenVPN
+1. **Initialize VPN Properties**
+   Begin by instantiating the `VPNProperties` class. This class contains the necessary properties to configure the VPN connection.
+
+2. **Enable Tunnel Adapter for OpenVPN Dialing**
+   Set the `UseTunnelAdapterForOpenVPNDialing` property to `true` within the `VPNProperties` class. This enables the use of the Wintun adapter for OpenVPN connections.
+
+   **Example Code:**
+```csharp
+	var vpnProperties = new VPNProperties(Country country, Protocol protocol);
+	vpnProperties.UseTunnelAdapterForOpenVPNDialing = true;
+```
+
+3. **Create the Connection**
+   After enabling the property, proceed to establish the OpenVPN connection. With the configuration set, the connection will automatically use the new Wintun adapter.
+
+***Note: This property will only work with UDP and TCP protocols.***
+
+---
+
+# Pause and Resume VPN Feature
+This section details about the **VPN Pause and Resume** feature using the **Atom SDK**, enabling users to temporarily pause VPN connections manually or for a specific duration. This is useful when users need to suspend VPN activity without a full disconnect.
+
+## Feature Overview
+
+### VPN Pause Modes
+
+- **Manual Pause**: Indefinitely pauses the VPN until resumed manually.
+- **Timed Pause**: Pauses the VPN for a predefined duration, automatically resuming afterward. Users can also resume manually before the timer ends.
+
+### Key Rules & Conditions
+
+- VPN can only be paused if in a **Connected** state.
+- VPN can only be resumed if in a **Paused** state.
+- A paused VPN can still be disconnected using the SDK's `Disconnect` method.
+- During a timed pause, users can manually resume the VPN using the `Resume` method.
+
+##  Events & Methods
+
+###  Events
+
+#### `OnVPNPaused`
+
+Triggered when the VPN is paused (manually or timed).
+
+```csharp
+atomManagerInstance.OnVPNPaused += AtomManager_OnVPNPaused;
+
+private void AtomManager_OnVPNPaused(object sender, PausedEventArgs e)
+{
+    // Handle pause state
+}
+```
+
+```csharp
+public class PausedEventArgs
+{
+    public ConnectionDetails ConnectionDetails { get; set; }
+    public VPNState State { get; private set; }
+}
+```
+
+###  Pause Method
+
+```csharp
+enum PauseVPNTimer 
+{
+    MANUAL,
+    MINUTES_5,
+    MINUTES_10,
+    MINUTES_15,
+    MINUTES_30,
+    MINUTES_60
+}
+
+async Task Pause(PauseVPNTimer pauseInterval)
+{
+    await AtomManagerInstance.Pause(pauseInterval);
+}
+```
+
+---
+
+###  Resume Method
+
+```csharp
+atomManagerInstance.Connected += AtomManager_Connected;
+atomManagerInstance.DialError += AtomManager_DialError;
+
+void Resume()
+{
+    AtomManagerInstance.Resume();
+}
+
+private void AtomManager_Connected(object sender, ConnectedEventArgs e)
+{
+    // VPN resumed successfully
+}
+
+private void AtomManager_DialError(object sender, DialErrorEventArgs e)
+{
+    // Handle resume error
+}
+```
+
+---
+
+## VPN State Management
+
+The SDK provides a `VPNState` enum for current state:
+
+```csharp
+public enum VPNState
+{
+    PAUSING,   // VPN is in the process of pausing
+    PAUSED,    // VPN is currently paused
+    RESUMING   // VPN is resuming
+}
+```
+
+Subscribe to state changes:
+
+```csharp
+atomManagerInstance.StateChanged += AtomManagerInstance_StateChanged;
+
+private void AtomManagerInstance_StateChanged(object sender, StateChangedEventArgs e)
+{
+    // Handle state changes: PAUSING, PAUSED, RESUMING, etc.
+}
+```
+
+---
+
+
+##  Conclusion
+
+The Atom SDK’s VPN Pause functionality provides powerful control over connection management, with both manual and timed pause options. By following the integration steps above, developers can enhance user experience with smooth, responsive VPN control.
+
+---
+
+# Tracker and Ad Blocker Feature
+
+This section outlines the deatils about the **Tracker and Ad Blocker** feature in the Atom VPN SDK. This feature allows VPN applications built using the Atom SDK to block tracking scripts and advertisements for enhanced privacy and performance.
+
+---
+
+## About This Feature
+
+As a VPN service provider, we offer a powerful SDK that our clients can use to build custom VPN applications. In our latest release, we’ve introduced support for **Tracker and Ad Blocker** functionality.
+
+When enabled, this feature will actively block trackers and advertisements during a VPN session. It is supported across all connection types provided by the SDK:
+
+1. **Connect with Param**
+2. **Connect with Dedicated IP**
+3. **Connect with Multiple Dedicated IPs**
+4. **Connect with Dedicated VPS**
+
+---
+
+##  Integration on Windows
+
+### 1. Define Features
+
+Use these constants to specify the features you want to enable:
+
+```csharp
+AtomShieldFeatureType.TRACKER
+AtomShieldFeatureType.AD_BLOCKER
+```
+
+---
+
+### 2. Request Features
+
+Specify the desired features in the `VPNProperties` object:
+
+```csharp
+properties.AtomShieldFeatures = new List<SDK.Core.Enumerations.AtomShield.AtomShieldFeatureType>
+{
+    SDK.Core.Enumerations.AtomShield.AtomShieldFeatureType.TRACKER,
+    SDK.Core.Enumerations.AtomShield.AtomShieldFeatureType.AD_BLOCKER
+};
+```
+
+---
+
+### 3. Observe Status and Data
+
+Subscribe to the following events to monitor status and blocked data:
+
+```csharp
+atomManagerInstance.AtomShieldStatusChanged += AtomManagerInstance_AtomShieldStatusChanged;
+atomManagerInstance.AtomShieldDataRecieved += AtomManagerInstance_AtomShieldDataRecieved;
+```
+
+---
+
+### 4. Status Definitions
+
+The `AtomShieldStatus` object represents the state of the feature:
+
+- `Establishing(String)`: Connecting the Tracker/Ad Blocker
+- `Established(String)`: Tracker/Ad Blocker connected successfully
+- `Disconnected(String)`: Tracker/Ad Blocker disconnected
+- `Error(AtomException)`: An error occurred (refer to error codes for details)
+
+---
+
+### 5. Data Monitoring
+
+Monitor the number of blocked trackers or ads using:
+
+```csharp
+(int) AtomShieldData.BlockerCount
+```
+
+---
+
+### 6. Requested Status
+
+Verify if features were requested using the following properties:
+
+```csharp
+ConnectionDetails.IsTrackerBlockerRequested
+ConnectionDetails.IsAdBlockerRequested
+```
+
+---
+
+## Conclusion
+
+The Tracker and Ad Blocker feature in the Atom SDK enables clients to provide users with enhanced privacy and a better browsing experience. This feature seamlessly integrates with all supported VPN connection types, ensuring consistent functionality across diverse configurations.
+
+---
+
+# Local LAN Access Feature
+
+## Overview
+Our VPN SDK now includes a new feature that allows users to access their locally connected devices over the internet while maintaining a VPN connection. This functionality ensures seamless connectivity to local resources without compromising security.
+
+## How It Works
+By default, VPN connections restrict access to locally connected devices. However, our SDK introduces the BYPassLocalLanConnection property within the VPNProperties class, which allows users to toggle this capability on or off.
+
+### Key Functionality:
+- When **enabled**, the user's locally connected devices remain accessible while using the VPN.
+- When **disabled**, the standard VPN restrictions apply, blocking access to local network devices.
+
+## Implementation
+To enable or disable Local LAN Access, set the BYPassLocalLanConnection property in your VPN configuration:
+
+```csharp
+	var vpnProperties = new VPNProperties(Country country, Protocol protocol);
+	vpnProperties.BYPassLocalLanConnection = true; // Enable access to local network devices
+```
+
+
+## Use Cases
+- Access network printers, shared drives, or IoT devices while connected to the VPN.
+- Maintain a secure VPN connection while still using local services.
+- Ideal for remote workers needing access to both VPN-protected resources and local network devices.
+
+---
 
 # Resolve dependencies conflicts if any :
 
