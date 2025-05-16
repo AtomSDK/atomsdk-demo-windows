@@ -40,12 +40,6 @@ namespace Atom.VPN.Demo
             get { return (_ConnectionWithParams = _ConnectionWithParams ?? new ConnectWithParams()); }
         }
 
-        private IConnection _ConnectionWithPSK;
-        public IConnection ConnectionWithPSK
-        {
-            get { return (_ConnectionWithPSK = _ConnectionWithPSK ?? new ConnectWithPSK()); }
-        }
-
         private IConnection _ConnectionWithDedicatedIP;
         public IConnection ConnectionWithDedicatedIP
         {
@@ -64,31 +58,6 @@ namespace Atom.VPN.Demo
         }
 
         #endregion
-
-        private bool _IsAutoCredMode;
-        public bool IsAutoCredMode
-        {
-            get { return _IsAutoCredMode; }
-            set
-            {
-                _IsAutoCredMode = value;
-                AtomHelper.IsAutoCredMode = value;
-                NotifyOfPropertyChange(() => IsAutoCredMode);
-            }
-        }
-
-        private string _UUID = string.Empty;
-
-        public string UUID
-        {
-            get { return _UUID.Trim(); }
-            set
-            {
-                _UUID = value;
-                AtomHelper.UUID = value;
-                NotifyOfPropertyChange(() => UUID);
-            }
-        }
 
         private string _Username = string.Empty;
 
@@ -453,7 +422,6 @@ namespace Atom.VPN.Demo
             var type = (SelectedTab.Content as ContentControl).Content.GetType();
 
             var connection =
-                type.Equals<ConnectWithPSK>() ? ConnectionWithPSK :
                 type.Equals<ConnectWithDedicatedIP>() ? ConnectionWithDedicatedIP :
                 ConnectionWithParams;
 

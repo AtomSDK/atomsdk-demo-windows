@@ -36,11 +36,7 @@
                         <TextBlock Text="{Binding SecretKey}" />
                     </StackPanel>
 
-                    <CheckBox Grid.Row="1" IsChecked="{Binding IsAutoCredMode}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5" Content="Auto generate user credentials" ToolTip="{Binding Messages.TooltipAutoGenCred}" />
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" ToolTip="{Binding Messages.TooltipUUID}" IsEnabled="{Binding IsAutoCredMode}">
-                        <Label Content="UUID:" VerticalContentAlignment="Center" />
-                        <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding UUID}" />
-                    </StackPanel>
+                    
                     <Grid Grid.Row="2" Margin="0,5" IsEnabled="{Binding IsAutoCredMode, Converter={StaticResource InvertBoolConverter}}" ToolTip="{Binding Messages.TooltipCred}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
                             <Label Content="Username:" VerticalContentAlignment="Center" />
@@ -57,9 +53,6 @@
             </Border>
 
             <TabControl Grid.Row="1" SelectedValue="{Binding SelectedTab}" IsEnabled="{Binding IsConnDisconnAllowed}">
-                <TabItem Header="Connect with PSK">
-                    <ContentControl Content="{Binding ConnectionWithPSK}" />
-                </TabItem>
                 <TabItem Header="Connect with Params">
                     <ContentControl Content="{Binding ConnectionWithParams}" />
                 </TabItem>
