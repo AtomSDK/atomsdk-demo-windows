@@ -493,11 +493,11 @@ By default, VPN connections restrict access to locally connected devices. Howeve
 - When **disabled**, the standard VPN restrictions apply, blocking access to local network devices.
 
 ## Implementation
-To enable or disable Local LAN Access, set the BYPassLocalLanConnection property in your VPN configuration:
+To enable or disable Local LAN Access, set the AllowLocalNetworkTraffic property in your VPN configuration:
 
 ```csharp
 	var vpnProperties = new VPNProperties(Country country, Protocol protocol);
-	vpnProperties.BYPassLocalLanConnection = true; // Enable access to local network devices
+	vpnProperties.AllowLocalNetworkTraffic = true; // Enable access to local network devices
 ```
 
 
