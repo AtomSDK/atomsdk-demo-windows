@@ -33,7 +33,7 @@ This is a demo application for Windows Desktop Applications with basic usage of 
 Install the latest version of Atom Network SDK through NuGet.
  
 ```csharp
-NuGet\Install-Package Atom.SDK.Net -Version 5.1.0
+NuGet\Install-Package Atom.SDK.Net -Version 5.2.0
 ```
 
 Run Atom.SDK.Installer.exe to install supporting services and drivers on any system. The same Installer should be accompanied with your application setup to get the required files installed on your customer's system.
