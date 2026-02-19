@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### Version 5.2.0
+
+### Changes
+- Removed unnecessary parameters from API endpoints.
+- Enhanced tunnel adapter dialing logic for more stable OpenVPN connection
+
 ### Version 5.1.0
 
 ### Changes
