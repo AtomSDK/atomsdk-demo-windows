@@ -183,7 +183,7 @@ var countries = AtomManagerInstance.GetCountriesForSmartDialing();
 ## Fetch Recommended Country
 You can get the Recommended Country for user's location through ATOM SDK.
 ```csharp
-var recommendedCountry = AtomManagerInstance.GetRecommendedCountry();
+var recommendedCountry = AtomManagerInstance.GetRecommendedLocation();
 ```
 
 ## Fetch Protocols
